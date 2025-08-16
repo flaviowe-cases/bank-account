@@ -13,7 +13,7 @@ public class AccountController(
     IAddAccountUseCase addAccountUseCase) : Controller
 {
     private readonly IAddAccountUseCase _addAccountUseCase = addAccountUseCase;
-    
+
     [HttpPost]
     [EndpointDescription("Adds a new account")]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -27,7 +27,7 @@ public class AccountController(
         var output = await _addAccountUseCase.HandleAsync(input);
         return CreateResponse(output);
     }
-    
+
     private static AddAccountInput CreateInput(AddAccountRequest request)
         => new AddAccountInput
         {
@@ -36,24 +36,28 @@ public class AccountController(
             AccountNumber = request.AccountNumber,
             Amount = request.InitialAmount,
         };
-    
+
     private IActionResult CreateResponse(Result<AddAccountOutput> output)
     {
         if (output.Success)
-            return StatusCode(201);
- 
+        {
+            var content = output.GetContent();
+            var uri = $"/api/v1/accounts/{content.AccountId}";
+            return Created(uri, content);
+        }
+
         if (output.ContainsFailure("INVALID_FIELDS"))
             return BadRequest(output.Failures);
-        
+
         if (output.ContainsFailure("ACCOUNT_ID_ALREADY_EXISTS"))
-            return Conflict(output.Failures);   
-        
+            return Conflict(output.Failures);
+
         if (output.ContainsFailure("ACCOUNT_NUMBER_ALREADY_EXISTS"))
-            return Conflict(output.Failures);  
-        
+            return Conflict(output.Failures);
+
         if (output.ContainsFailure("DEPOSIT_TEMPORARILY_UNAVAILABLE"))
             return StatusCode(503, output.Failures);
-        
-        return StatusCode(500,  output.Failures);
+
+        return StatusCode(500, output.Failures);
     }
 }

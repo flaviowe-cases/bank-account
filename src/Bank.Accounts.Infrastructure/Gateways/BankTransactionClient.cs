@@ -22,7 +22,7 @@ public class BankTransactionClient(
     {
         try
         {
-            var requestUrl = "api/v1/transactions/amounts";
+            var requestUrl = "api/v1/transaction/balance";
 
             if (accountIds.Count != 0)
                 requestUrl += "?" + string.Join("&", accountIds.Select(id => $"accountId={id}"));
@@ -32,13 +32,18 @@ public class BankTransactionClient(
 
             if (response.IsSuccessStatusCode)
             {
-                var amountsApplications = _jsonSerializer
-                    .Deserialize<List<AmountApplication>>(content);
+                var transactionBalanceResponse = _jsonSerializer
+                    .Deserialize<TransactionBalanceResponse>(content);
 
-                amountsApplications ??= [];
+                if (transactionBalanceResponse == null)
+                    return _resultFactory.CreateFailure<List<AmountApplication>>(
+                        "GET_AMOUNT_WITH_FAILURE",
+                        $"Status Code: {response.StatusCode} - Response: {content}");
 
                 return _resultFactory
-                    .CreateSuccess(amountsApplications);
+                    .CreateSuccess(transactionBalanceResponse
+                        .AccountBalance
+                        .ToList());
             }
             else
             {

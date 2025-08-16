@@ -1,3 +1,4 @@
+using Bank.Transactions.Application.Models;
 using Bank.Transactions.Application.Repositories;
 using Bank.Transactions.Domain.Entities;
 
@@ -8,7 +9,7 @@ public class AmountService(
 {
     private readonly ITransactionRepository _transactionRepository = transactionRepository;
 
-    public async Task<decimal> GetCurrentBalanceAsync(Guid accountId)
+    public async Task<AccountBalance> GetCurrentBalanceAsync(Guid accountId)
     {
         var transactions = await _transactionRepository
             .GetByAccountIdAsync(accountId, TransactionStatusType.Success);
@@ -18,9 +19,13 @@ public class AmountService(
             .Sum(transaction => transaction.Amount);
 
         var amountDebit = transactions
-            .Where(transaction => transaction.DestinationAccountId == accountId)
+            .Where(transaction => transaction.SourceAccountId == accountId)
             .Sum(transaction => transaction.Amount);
 
-        return amountCredit - amountDebit;
+        return new()
+        {
+            AccountId = accountId,
+            Amount = amountCredit - amountDebit,
+        };
     }
 }

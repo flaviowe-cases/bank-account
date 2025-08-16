@@ -48,10 +48,10 @@ public class TransactionService(
                 Status = TransactionStatusType.Success
             };
 
-            if (await CheckTransactionLimit(transaction))
+            if (!await CheckTransactionLimit(transaction))
                 return transaction;
 
-            if (await CheckSourceAccountFunds(transaction))
+            if (!await CheckSourceAccountFunds(transaction))
                 return transaction;
             
             await _transactionRepository.AddAsync(transaction);
@@ -89,10 +89,13 @@ public class TransactionService(
     
     private async Task<bool> CheckSourceAccountFunds(Transaction transaction)
     {
+        if (transaction.SourceAccountId.Equals(Guid.Empty))
+            return true;
+        
         var currentBalance = await _amountService
             .GetCurrentBalanceAsync(transaction.SourceAccountId);
         
-        if (currentBalance > transaction.Amount)
+        if (currentBalance.Amount >= transaction.Amount)
             return true;
         
         transaction.Status = TransactionStatusType.InsufficientFunds;

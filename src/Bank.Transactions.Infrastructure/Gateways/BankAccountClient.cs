@@ -31,18 +31,28 @@ public class BankAccountClient(
 
             if (response.IsSuccessStatusCode)
             {
-                var account = _serializer.Deserialize<BankAccount>(responseContent);
+                var accountResponse = _serializer.Deserialize<BankAccountResponse>(responseContent);
 
-                if (account == null)
+                if (accountResponse == null)
                 {
                     _logger.LogError("Failed to parse account: {ResponseContent}", responseContent);
-                    
+
                     return _resultFactory.CreateFailure<BankAccount>(
                         "FAILED_PARSE_ACCOUNT",
                         "Failed to get account");
                 }
-                
-                _resultFactory.CreateSuccess(account);  
+
+                if (!accountResponse.Accounts.Any())
+                {
+                    _logger.LogError("Failed to parse account: {ResponseContent}", responseContent);
+
+                    return _resultFactory.CreateFailure<BankAccount>(
+                        "ACCOUNT_NOT_FOUND",
+                        "Account not found");
+                }
+
+                var account = accountResponse.Accounts.First();
+                return _resultFactory.CreateSuccess(account);
             }
 
             if (response.StatusCode == HttpStatusCode.NotFound)
@@ -51,7 +61,7 @@ public class BankAccountClient(
                     "ACCOUNT_NOT_FOUND",
                     "Account not found");
             }
-            
+
             _logger.LogError("Failed to get account: {ResponseContent}", responseContent);
 
             return _resultFactory.CreateFailure<BankAccount>(
