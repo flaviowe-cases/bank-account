@@ -1,9 +1,8 @@
-using Bank.Transactions.Application.Models;
 using Bank.Transactions.Domain.Entities;
 
 namespace Bank.Transactions.Application.Services;
 
-public interface ITransferService
+public interface ITransactionService
 {
     Task<Transaction> ExecuteAsync(
         Guid sourceAccountId,

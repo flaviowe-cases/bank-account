@@ -1,4 +1,5 @@
 @Bank.Transactions.Api_HostAddress = http://localhost:5108
+@Bank = variable value
 
 GET {{Bank.Transactions.Api_HostAddress}}/weatherforecast/
 Accept: application/json

@@ -16,10 +16,10 @@ if (string.IsNullOrEmpty(bankTransactionBaseAddress))
 
 builder
     .Services
-    .AddSwaggerGen()
-    .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
-    .AddBankAccounts(bankTransactionBaseAddress)
-    .AddControllers();
+        .AddSwaggerGen()
+        .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
+        .AddBankAccounts(bankTransactionBaseAddress)
+        .AddControllers();
 
 builder.Services.AddScoped<IAccountStubs, AccountStubs>();
 
@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
         var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
         foreach (var description in provider.ApiVersionDescriptions)
             options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                description.GroupName.ToUpperInvariant());
+                description.GroupName.ToLowerInvariant());
     });
 }
 

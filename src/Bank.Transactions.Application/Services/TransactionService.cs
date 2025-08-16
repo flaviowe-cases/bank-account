@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Bank.Transactions.Application.Services;
 
-public class TransferService(
-    ILogger<TransferService> logger,
+public class TransactionService(
+    ILogger<TransactionService> logger,
     IAmountService amountService,
     TransferParameters transferParameters,
     ITransactionRepository transactionRepository,
-    ConcurrentDictionary<Guid, SemaphoreSlim> concurrent) : ITransferService
+    ConcurrentDictionary<Guid, SemaphoreSlim> concurrent) : ITransactionService
 {
-    private readonly ILogger<TransferService> _logger = logger;
+    private readonly ILogger<TransactionService> _logger = logger;
     private readonly IAmountService _amountService = amountService;
     private readonly TransferParameters _transferParameters = transferParameters;
     private readonly ITransactionRepository _transactionRepository = transactionRepository;

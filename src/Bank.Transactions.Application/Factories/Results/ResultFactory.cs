@@ -2,7 +2,7 @@ using FluentValidation.Results;
 
 namespace Bank.Transactions.Application.Factories.Results;
 
-public class ßResultFactory : IResultFactory
+public class ResultFactory : IResultFactory
 {
     public Result<T> CreateSuccess<T>(T content)
         => new(content) { Success = true, };

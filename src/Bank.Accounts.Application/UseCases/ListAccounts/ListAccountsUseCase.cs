@@ -8,10 +8,10 @@ using FluentValidation;
 namespace Bank.Accounts.Application.UseCases.ListAccounts;
 
 public class ListAccountsUseCase(
-    IValidator<ListAccountsInput> validator,   
-    IAccountRepository  accountRepository,
-    IResultFactory  resultFactory,
-    IAmountService  amountService,
+    IValidator<ListAccountsInput> validator,
+    IAccountRepository accountRepository,
+    IResultFactory resultFactory,
+    IAmountService amountService,
     IAccountApplicationMapper accountApplicationMapper) : IListAccountsUseCase
 {
     private readonly IValidator<ListAccountsInput> _validator = validator;
@@ -29,31 +29,26 @@ public class ListAccountsUseCase(
                 "INVALID_FIELDS",
                 "Invalid fields",
                 validation.Errors);
-        
+
         var accounts = await _accountRepository
-            .GetAllAsync(input.PageNumber, input.PageSize);
-        
+            .GetAllAsync(input.AccountNumber, input.PageNumber, input.PageSize);
+
         if (accounts.Count == 0)
             return _resultFactory.CreateSuccess(new ListAccountsOutput()
             {
                 Accounts = []
             });
-        
+
         var accountApplications = _accountApplicationMapper
             .ToApplication(accounts);
 
-        var loadAmount = !input.IgnoreAmount ?? false;
+        accountApplications = await _amountService
+            .LoadAmountsAsync(accountApplications);
 
-        if (loadAmount)
-        {
-            accountApplications = await _amountService
-                .LoadAmountsAsync(accountApplications);
-            
-            if (accountApplications == null)
-                return _resultFactory.CreateFailure<ListAccountsOutput>(
-                    "BALANCE_TEMPORARILY_UNAVAILABLE",
-                    "balance temporarily unavailable");
-        }
+        if (accountApplications == null)
+            return _resultFactory.CreateFailure<ListAccountsOutput>(
+                "BALANCE_TEMPORARILY_UNAVAILABLE",
+                "balance temporarily unavailable");
 
         var output = new ListAccountsOutput()
         {

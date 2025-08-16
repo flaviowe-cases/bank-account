@@ -31,7 +31,7 @@ public class GetAccountUseCase(
                 validation.Errors);
         
         var account = await _accountRepository
-            .GetByAccountNumber(input.AccountNumber);
+            .GetByIdAsync(input.AccountId);
 
         if (account is null)
             return _resultFactory.CreateFailure<GetAccountOutput>(

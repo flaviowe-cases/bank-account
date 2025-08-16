@@ -1,3 +1,4 @@
+using System.Net;
 using Bank.Transactions.Application.Factories.Results;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Models;
@@ -21,7 +22,9 @@ public class BankAccountClient(
     {
         try
         {
-            var requestUrl = $"api/v1/Account?accountNumber={accountNumber} ";
+            var requestUrl = $"api/v1/Account?" +
+                             $"accountNumber={accountNumber}" +
+                             "&pageSize=1&pageNumber=1";
 
             using var response = await _httpClient.GetAsync(requestUrl);
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -42,6 +45,13 @@ public class BankAccountClient(
                 _resultFactory.CreateSuccess(account);  
             }
 
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return _resultFactory.CreateFailure<BankAccount>(
+                    "ACCOUNT_NOT_FOUND",
+                    "Account not found");
+            }
+            
             _logger.LogError("Failed to get account: {ResponseContent}", responseContent);
 
             return _resultFactory.CreateFailure<BankAccount>(

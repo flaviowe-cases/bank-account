@@ -1,7 +1,6 @@
 using Asp.Versioning;
 using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.UseCases.GetAccount;
-using Bank.Accounts.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Accounts.Api.Controllers.GetAccount;
@@ -9,22 +8,23 @@ namespace Bank.Accounts.Api.Controllers.GetAccount;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
+[Produces("application/json")]
 public class AccountController(
     IGetAccountUseCase getAccountUseCase) : Controller
 {
     private readonly IGetAccountUseCase _getAccountUseCase = getAccountUseCase;
 
-    [HttpGet()]
+    [HttpGet("{accountId:guid}")]
     [EndpointDescription("Returns account by account number")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAccountOutput))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ResultFail[]))]
-    public async Task<IActionResult> GetAsync([FromQuery] int accountNumber)
+    public async Task<IActionResult> GetAsync([FromRoute] Guid accountId)
     {
         var input = new GetAccountInput()
         {
-            AccountNumber = accountNumber
+            AccountId = accountId
         };
         
         var output = await _getAccountUseCase

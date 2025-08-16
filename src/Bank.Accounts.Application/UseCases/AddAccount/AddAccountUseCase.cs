@@ -32,7 +32,7 @@ public class AddAccountUseCase(
                 validation.Errors);
 
         var existingAccounts = await _accountRepository
-            .GetByIdOrAccountNumber(input.AccountId, input.AccountNumber);
+            .GetByIdOrAccountNumberAsync(input.AccountId, input.AccountNumber);
 
         if (existingAccounts.Count != 0)
             return CreateAlreadyExists(input, existingAccounts);

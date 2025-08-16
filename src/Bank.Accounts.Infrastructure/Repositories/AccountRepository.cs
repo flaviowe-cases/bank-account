@@ -9,6 +9,16 @@ public class AccountRepository(
 {
     private readonly AccountContext _accountContext = accountContext;
 
+    public async Task<Account?> GetByIdAsync(Guid accountId)
+    {
+        var query = from account in _accountContext.Accounts
+            where  account.Id == accountId
+            select account; 
+        
+        return await query
+            .FirstOrDefaultAsync();
+    }
+    
     public async Task AddAsync(Account account)
     {
         await _accountContext
@@ -19,10 +29,13 @@ public class AccountRepository(
             .SaveChangesAsync();
     }
 
-    public async Task<List<Account>> GetAllAsync(int pageNumber, int pageSize)
+    public async Task<List<Account>> GetAllAsync(int? accountNumber, int pageNumber, int pageSize)
     {
         var query = from account in _accountContext.Accounts
-                    select account;
+            select account;
+
+        if (accountNumber.HasValue)
+            query = query.Where(account => account.Number == accountNumber.Value);  
         
         query = query
             .Skip(pageSize * (pageNumber - 1))
@@ -31,17 +44,7 @@ public class AccountRepository(
         return await query.ToListAsync();
     }
 
-    public async Task<Account?> GetByAccountNumber(int accountNumber)
-    {
-        var query = from account in _accountContext.Accounts
-                    where  account.Number == accountNumber
-                    select account; 
-        
-        return await query
-            .FirstOrDefaultAsync(); 
-    }
-
-    public async Task<List<Account>> GetByIdOrAccountNumber(Guid accountId, int accountNumber)
+    public async Task<List<Account>> GetByIdOrAccountNumberAsync(Guid accountId, int accountNumber)
     {
         var query = from account in _accountContext.Accounts
                     where account.Id == accountId ||

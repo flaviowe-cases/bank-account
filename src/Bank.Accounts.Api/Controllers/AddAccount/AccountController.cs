@@ -8,6 +8,7 @@ namespace Bank.Accounts.Api.Controllers.AddAccount;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
+[Produces("application/json")]
 public class AccountController(
     IAddAccountUseCase addAccountUseCase) : Controller
 {

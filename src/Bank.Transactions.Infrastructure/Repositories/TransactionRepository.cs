@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Transactions.Infrastructure.Repositories;
 
-public class TransactionRepositor(
+public class TransactionRepository(
     TransactionContext transactionContext) : ITransactionRepository
 {
     private readonly TransactionContext _transactionContext = transactionContext;
