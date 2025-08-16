@@ -50,6 +50,17 @@ public class AccountRepository(
         
         return await query
             .ToListAsync();
+    }
 
+    public async Task DeleteAsync(Guid accountId)
+    {
+        var account = await _accountContext.Accounts
+            .FirstOrDefaultAsync(account => account.Id == accountId);
+        
+        if (account == null)
+            return;
+        
+        _accountContext.Remove(account);
+        await _accountContext.SaveChangesAsync();
     }
 }

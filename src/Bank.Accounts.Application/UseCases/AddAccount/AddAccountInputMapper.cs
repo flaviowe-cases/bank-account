@@ -11,7 +11,6 @@ public class AddAccountInputMapper : IAddAccountInputMapper
             Id = Guid.NewGuid(),
             Number = addAccountInput.AccountNumber,
             Name = addAccountInput.Name,
-            Balance = addAccountInput.Amount,
         };
     }
 }

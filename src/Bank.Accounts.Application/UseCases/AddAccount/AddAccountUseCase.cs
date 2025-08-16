@@ -1,3 +1,5 @@
+using Bank.Accounts.Application.Gateways;
+using Bank.Accounts.Application.Services.Amounts;
 using Bank.Accounts.Domain.Entities;
 using FluentValidation;
 
@@ -9,11 +11,13 @@ using Repositories;
 public class AddAccountUseCase(
     IValidator<AddAccountInput> validator,
     IAccountRepository accountRepository,
+    IAmountService  amountService,
     IResultFactory resultFactory,
     IAddAccountInputMapper addAccountInputMapper) : IAddAccountUseCase
 {
     private readonly IValidator<AddAccountInput> _validator = validator;
     private readonly IAccountRepository _accountRepository = accountRepository;
+    private readonly IAmountService _amountService = amountService;
     private readonly IResultFactory _resultFactory = resultFactory;
     private readonly IAddAccountInputMapper _addAccountInputMapper = addAccountInputMapper;
 
@@ -37,10 +41,7 @@ public class AddAccountUseCase(
 
         await _accountRepository.AddAsync(account);
 
-        return _resultFactory.CreateSuccess(new AddAccountOutput()
-        {
-            AccountId = account.Id
-        });
+        return await HandleDepositAsync(account, input.Amount);
     }
 
     private Result<AddAccountOutput> CreateAlreadyExists(
@@ -63,5 +64,20 @@ public class AddAccountUseCase(
             });
 
         return _resultFactory.CreateFailure<AddAccountOutput>(failures);
+    }
+
+    private async Task<Result<AddAccountOutput>> HandleDepositAsync(Account account, decimal amount)
+    {
+        var success = await _amountService.MakeTransferAsync(
+            account, amount, "Open account");
+
+        if (success)
+            return _resultFactory.CreateSuccess(
+                new AddAccountOutput() { AccountId = account.Id });
+        
+        await _accountRepository.DeleteAsync(account.Id);
+        return _resultFactory.CreateFailure<AddAccountOutput>(
+            "DEPOSIT_TEMPORARILY_UNAVAILABLE",
+            "Deposit is unavailable");
     }
 }

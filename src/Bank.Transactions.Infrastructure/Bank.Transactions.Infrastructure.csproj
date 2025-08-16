@@ -7,12 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Bank.Accounts.Domain\Bank.Accounts.Domain.csproj" />
+      <ProjectReference Include="..\Bank.Transactions.Application\Bank.Transactions.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="12.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.19" />
     </ItemGroup>
 
 </Project>

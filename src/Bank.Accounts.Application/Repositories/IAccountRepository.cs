@@ -8,4 +8,5 @@ public interface IAccountRepository
     Task<List<Account>> GetAllAsync(int pageNumber, int pageSize);
     Task<Account?> GetByAccountNumber(int accountNumber);
     Task<List<Account>> GetByIdOrAccountNumber(Guid accountId, int accountNumber);
+    Task DeleteAsync(Guid accountId);
 }

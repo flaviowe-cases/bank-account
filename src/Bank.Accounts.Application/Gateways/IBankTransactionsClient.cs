@@ -6,4 +6,5 @@ namespace Bank.Accounts.Application.Gateways;
 public interface IBankTransactionsClient
 {
     Task<Result<List<AmountApplication>>> GetAmountsAsync(List<Guid> accountIds);
+    Task<Result<TransferApplication>> MakeTransferAsync(TransferApplication transfer);
 }

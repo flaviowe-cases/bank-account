@@ -19,6 +19,7 @@ public class AccountController(
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ResultFail[]))]
+    [ProducesResponseType(StatusCodes.Status503ServiceUnavailable, Type = typeof(ResultFail[]))]
     public async Task<IActionResult> PostAsync([FromBody] AddAccountRequest request)
     {
         var input = CreateInput(request);
@@ -47,7 +48,10 @@ public class AccountController(
             return Conflict(output.Failures);   
         
         if (output.ContainsFailure("ACCOUNT_NUMBER_ALREADY_EXISTS"))
-            return Conflict(output.Failures);   
+            return Conflict(output.Failures);  
+        
+        if (output.ContainsFailure("DEPOSIT_TEMPORARILY_UNAVAILABLE"))
+            return StatusCode(503, output.Failures);
         
         return StatusCode(500,  output.Failures);
     }
