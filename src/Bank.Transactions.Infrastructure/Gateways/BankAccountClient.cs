@@ -18,13 +18,17 @@ public class BankAccountClient(
     private readonly HttpClient _httpClient = httpClient;
     private readonly IResultFactory _resultFactory = resultFactory;
 
-    public async Task<Result<BankAccount>> GetByAccountNumber(int accountNumber)
+    public Task<Result<BankAccount>> GetByAccountAsync(int accountNumber)
+        => GetAccountAsync(accountNumber.ToString());
+    
+    public Task<Result<BankAccount>> GetByAccountAsync(Guid accountId)
+        => GetAccountAsync(accountId.ToString());
+    
+    private async Task<Result<BankAccount>> GetAccountAsync(string account)
     {
         try
         {
-            var requestUrl = $"api/v1/Account?" +
-                             $"accountNumber={accountNumber}" +
-                             "&pageSize=1&pageNumber=1";
+            var requestUrl = $"api/v1/Account/{account}";
 
             using var response = await _httpClient.GetAsync(requestUrl);
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -42,17 +46,8 @@ public class BankAccountClient(
                         "Failed to get account");
                 }
 
-                if (!accountResponse.Accounts.Any())
-                {
-                    _logger.LogError("Failed to parse account: {ResponseContent}", responseContent);
-
-                    return _resultFactory.CreateFailure<BankAccount>(
-                        "ACCOUNT_NOT_FOUND",
-                        "Account not found");
-                }
-
-                var account = accountResponse.Accounts.First();
-                return _resultFactory.CreateSuccess(account);
+                var accountBank = accountResponse.Account;
+                return _resultFactory.CreateSuccess(accountBank);
             }
 
             if (response.StatusCode == HttpStatusCode.NotFound)

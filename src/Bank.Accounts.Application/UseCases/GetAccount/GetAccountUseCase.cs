@@ -1,9 +1,8 @@
 using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Mappers;
 using Bank.Accounts.Application.Repositories;
-using Bank.Accounts.Application.Services;
 using Bank.Accounts.Application.Services.Amounts;
-using Bank.Accounts.Application.UseCases.AddAccount;
+using Bank.Accounts.Domain.Entities;
 using FluentValidation;
 
 namespace Bank.Accounts.Application.UseCases.GetAccount;
@@ -29,10 +28,15 @@ public class GetAccountUseCase(
                 "INVALID_FIELDS",
                 "Invalid fields",
                 validation.Errors);
-        
-        var account = await _accountRepository
-            .GetByIdAsync(input.AccountId);
 
+        Account? account = null;
+        
+        if (input.AccountId.HasValue)
+            account = await _accountRepository.GetByIdAsync(input.AccountId.Value);
+
+        else if(input.AccountNumber.HasValue)
+            account = await _accountRepository.GetByNumberAsync(input.AccountNumber.Value);
+        
         if (account is null)
             return _resultFactory.CreateFailure<GetAccountOutput>(
                 "ACCOUNT_NOT_FOUND", "Account not found");

@@ -35,7 +35,7 @@ public class ExecuteTransactionUseCase(
         {
             var accountNumber = input.SourceAccountNumber.Value;
             var accountResult = await _bankAccountClient
-                .GetByAccountNumber(accountNumber);
+                .GetByAccountAsync(accountNumber);
 
             if (!accountResult.Success)
                 return HandleAccountNotFound(
@@ -49,7 +49,7 @@ public class ExecuteTransactionUseCase(
         {
             var accountNumber = input.DestinationAccountNumber.Value;
             var accountResult = await _bankAccountClient
-                .GetByAccountNumber(accountNumber);
+                .GetByAccountAsync(accountNumber);
 
             if (!accountResult.Success)
                 return HandleAccountNotFound(

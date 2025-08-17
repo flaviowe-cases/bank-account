@@ -19,11 +19,10 @@ public class AccountController(
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ResultFail[]))]
-    public async Task<IActionResult> ListAsync([FromQuery] int? accountNumber, [FromQuery] int pageNumber, [FromQuery] int pageSize)
+    public async Task<IActionResult> ListAsync([FromQuery] int pageNumber, [FromQuery] int pageSize)
     {
         var input = new ListAccountsInput()
         {
-            AccountNumber = accountNumber,
             PageNumber = pageNumber,
             PageSize = pageSize,
         };

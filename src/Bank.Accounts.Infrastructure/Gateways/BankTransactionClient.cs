@@ -69,7 +69,7 @@ public class BankTransactionClient(
     {
         try
         {
-            var requestUrl = "api/v1/transactions";
+            var requestUrl = "api/v1/transaction";
 
             var requestContent = JsonContent.Create(transfer);
 

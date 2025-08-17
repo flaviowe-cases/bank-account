@@ -6,6 +6,7 @@ using Bank.Transactions.Application.Serializers;
 using Bank.Transactions.Application.Services;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
 using Bank.Transactions.Application.UseCases.GetTransactionsBalance;
+using Bank.Transactions.Application.UseCases.GetTransactionsHistory;
 using Bank.Transactions.Domain.Entities;
 using Bank.Transactions.Infrastructure.Gateways;
 using Bank.Transactions.Infrastructure.Repositories;
@@ -44,7 +45,8 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddBankApplicationUseCases(this IServiceCollection services)
         => services
             .AddScoped<IExecuteTransactionUseCase, ExecuteTransactionUseCase>()
-            .AddScoped<IGetTransactionsBalanceUseCase, GetTransactionsBalanceUseCase>();
+            .AddScoped<IGetTransactionsBalanceUseCase, GetTransactionsBalanceUseCase>()
+            .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>();
 
     private static IServiceCollection AddBankApplicationFactories(this IServiceCollection services)
         => services

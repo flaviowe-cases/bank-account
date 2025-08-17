@@ -5,5 +5,7 @@ namespace Bank.Transactions.Application.Gateways;
 
 public interface IBankAccountClient
 {
-    Task<Result<BankAccount>> GetByAccountNumber(int accountNumber);
+    Task<Result<BankAccount>> GetByAccountAsync(int accountNumber);
+    Task<Result<BankAccount>> GetByAccountAsync(Guid accountId);
+
 }

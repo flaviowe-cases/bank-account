@@ -42,7 +42,7 @@ public class AccountController(
         if (output.Success)
         {
             var content = output.GetContent();
-            var uri = $"/api/v1/accounts/{content.AccountId}";
+            var uri = $"/api/v1/Account/{content.AccountId}";
             return Created(uri, content);
         }
 

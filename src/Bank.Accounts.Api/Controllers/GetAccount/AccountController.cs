@@ -14,18 +14,21 @@ public class AccountController(
 {
     private readonly IGetAccountUseCase _getAccountUseCase = getAccountUseCase;
 
-    [HttpGet("{accountId:guid}")]
+    [HttpGet("{account}")]
     [EndpointDescription("Returns account by account number")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetAccountOutput))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ResultFail[]))]
-    public async Task<IActionResult> GetAsync([FromRoute] Guid accountId)
+    public async Task<IActionResult> GetAsync([FromRoute] string account)
     {
-        var input = new GetAccountInput()
-        {
-            AccountId = accountId
-        };
+        var input = new GetAccountInput();
+        
+        if (Guid.TryParse(account, out var accountId))
+            input.AccountId = accountId; 
+        
+        if (int.TryParse(account, out var accountNumber))
+            input.AccountNumber = accountNumber; 
         
         var output = await _getAccountUseCase
             .HandleAsync(input);   

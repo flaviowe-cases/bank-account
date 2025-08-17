@@ -4,10 +4,10 @@ namespace Bank.Accounts.Application.Repositories;
 
 public interface IAccountRepository
 {
-    Task<Account?> GetByIdAsync(Guid accountId);
     Task AddAsync(Account account);
-    Task<List<Account>> GetAllAsync(int? accountNumber, int pageNumber, int pageSize);
-    Task<List<Account>> GetByIdOrAccountNumberAsync(Guid accountId, int accountNumber);
     Task DeleteAsync(Guid accountId);
-
+    Task<Account?> GetByIdAsync(Guid accountId);
+    Task<Account?> GetByNumberAsync(int accountNumber);
+    Task<List<Account>> GetByIdOrAccountNumberAsync(Guid accountId, int accountNumber);
+    Task<List<Account>> GetAllAsync(int pageNumber, int pageSize);
 }

@@ -1,4 +1,3 @@
-using Bank.Accounts.Application.Gateways;
 using Bank.Accounts.Application.Services.Amounts;
 using Bank.Accounts.Domain.Entities;
 using FluentValidation;
@@ -11,7 +10,7 @@ using Repositories;
 public class AddAccountUseCase(
     IValidator<AddAccountInput> validator,
     IAccountRepository accountRepository,
-    IAmountService  amountService,
+    IAmountService amountService,
     IResultFactory resultFactory,
     IAddAccountInputMapper addAccountInputMapper) : IAddAccountUseCase
 {
@@ -34,7 +33,7 @@ public class AddAccountUseCase(
         var existingAccounts = await _accountRepository
             .GetByIdOrAccountNumberAsync(input.AccountId, input.AccountNumber);
 
-        if (existingAccounts.Count != 0)
+        if (existingAccounts.Any())
             return CreateAlreadyExists(input, existingAccounts);
 
         var account = _addAccountInputMapper.ToDomain(input);
@@ -74,7 +73,7 @@ public class AddAccountUseCase(
         if (success)
             return _resultFactory.CreateSuccess(
                 new AddAccountOutput() { AccountId = account.Id });
-        
+
         await _accountRepository.DeleteAsync(account.Id);
         return _resultFactory.CreateFailure<AddAccountOutput>(
             "DEPOSIT_TEMPORARILY_UNAVAILABLE",

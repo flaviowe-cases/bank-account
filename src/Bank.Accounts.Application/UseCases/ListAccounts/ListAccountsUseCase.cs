@@ -31,7 +31,7 @@ public class ListAccountsUseCase(
                 validation.Errors);
 
         var accounts = await _accountRepository
-            .GetAllAsync(input.AccountNumber, input.PageNumber, input.PageSize);
+            .GetAllAsync(input.PageNumber, input.PageSize);
 
         if (accounts.Count == 0)
             return _resultFactory.CreateSuccess(new ListAccountsOutput()

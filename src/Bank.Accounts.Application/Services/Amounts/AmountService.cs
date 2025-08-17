@@ -45,7 +45,6 @@ public class AmountService(
     {
         var transfer = new TransferApplication()
         {
-            SourceAccountNumber = 0,
             DestinationAccountNumber = account.Number,
             Amount = amount,
             Comments = comments,

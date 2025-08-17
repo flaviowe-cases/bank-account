@@ -13,6 +13,11 @@ public class ExecuteTransactionInputValidation
                 x.DestinationAccountNumber is not null)
             .WithErrorCode("SOURCE_ACCOUNT_OR_DESTINATION_ACCOUNT_REQUIRED")
             .WithMessage("SourceAccountNumber or DestinationAccountNumber cannot be null or empty.");
+        
+        RuleFor(x => x) 
+            .Must(x => x.DestinationAccountNumber != x.SourceAccountNumber)
+            .WithErrorCode("SOURCE_AND_DESTINATION_CANNOT_BE_SAME_ACCOUNT")
+            .WithMessage("Destination account cannot be the same as source account.");
 
         RuleFor(x => x.SourceAccountNumber)
             .GreaterThan(0)
