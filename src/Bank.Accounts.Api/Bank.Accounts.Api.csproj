@@ -17,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Bank.Accounts.Infrastructure\Bank.Accounts.Infrastructure.csproj" />
       <ProjectReference Include="..\Bank.Commons.Api\Bank.Commons.Api.csproj" />
+      <ProjectReference Include="..\Bank.Transactions.Api\Bank.Transactions.Api.csproj" />
     </ItemGroup>
 
 </Project>

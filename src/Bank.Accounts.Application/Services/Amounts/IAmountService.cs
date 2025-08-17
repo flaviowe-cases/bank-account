@@ -7,5 +7,5 @@ public interface IAmountService
 {
      Task<List<AccountApplication>?> LoadAmountsAsync(List<AccountApplication> accounts);
      Task<AccountApplication?> LoadAmountAsync(AccountApplication account);
-     Task<bool> MakeTransferAsync(Account account, decimal amount, string openAccount);
+     Task<bool> MakeTransferAsync(Transaction transaction, decimal amount, string openAccount);
 }

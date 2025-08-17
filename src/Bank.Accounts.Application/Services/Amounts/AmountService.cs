@@ -55,11 +55,11 @@ public class AmountService(
             .ToList();  
     }
 
-    public async Task<bool> MakeTransferAsync(Account account, decimal amount, string comments)
+    public async Task<bool> MakeTransferAsync(Transaction transaction, decimal amount, string comments)
     {
         var transfer = new TransferApplication()
         {
-            DestinationAccountNumber = account.Number,
+            DestinationAccountNumber = transaction.Number,
             Amount = amount,
             Comments = comments,
         };
@@ -68,7 +68,7 @@ public class AmountService(
         
         if (!result.Success)
             _logger.LogCritical("Fail to make transfer {Id} {Reason}",
-                account.Id, result.Failures?.FirstOrDefault()?.Message);
+                transaction.Id, result.Failures?.FirstOrDefault()?.Message);
         
         return result.Success;
     }

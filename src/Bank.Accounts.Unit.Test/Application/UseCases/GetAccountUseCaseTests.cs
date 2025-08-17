@@ -41,7 +41,7 @@ public class GetAccountUseCaseTests
         };
 
         var validation = new ValidationResult();
-        var account = fixture.Create<Account>();
+        var account = fixture.Create<Transaction>();
         var accountApplication = fixture.Create<AccountApplication>();
         var output = fixture.Create<GetAccountOutput>();
         var resultOutput = new Result<GetAccountOutput>(output) { Success = true };
@@ -105,7 +105,7 @@ public class GetAccountUseCaseTests
         };
 
         var validation = new ValidationResult();
-        var account = fixture.Create<Account>();
+        var account = fixture.Create<Transaction>();
         var accountApplication = fixture.Create<AccountApplication>();
         var output = fixture.Create<GetAccountOutput>();
         var resultOutput = new Result<GetAccountOutput>(output) { Success = true };
@@ -177,7 +177,7 @@ public class GetAccountUseCaseTests
 
         accountRepository
             .GetByNumberAsync(input.AccountNumber.Value)
-            .Returns((Account?)null);
+            .Returns((Transaction?)null);
 
         resultFactory
             .CreateFailure<GetAccountOutput>(
@@ -218,7 +218,7 @@ public class GetAccountUseCaseTests
         };
 
         var validation = new ValidationResult();
-        var account = fixture.Create<Account>();
+        var account = fixture.Create<Transaction>();
         var accountApplication = fixture.Create<AccountApplication>();
         var output = fixture.Create<GetAccountOutput>();
         var resultOutput = new Result<GetAccountOutput>(output) { Success = false };

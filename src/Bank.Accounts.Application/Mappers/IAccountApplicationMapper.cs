@@ -5,6 +5,6 @@ namespace Bank.Accounts.Application.Mappers;
 
 public interface IAccountApplicationMapper
 {
-    List<AccountApplication> ToApplication(List<Account> accounts);
-    AccountApplication ToApplication(Account account);
+    List<AccountApplication> ToApplication(List<Transaction> accounts);
+    AccountApplication ToApplication(Transaction transaction);
 }

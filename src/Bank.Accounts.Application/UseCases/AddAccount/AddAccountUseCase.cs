@@ -44,7 +44,7 @@ public class AddAccountUseCase(
     }
 
     private Result<AddAccountOutput> CreateAlreadyExists(
-        AddAccountInput input, List<Account> existingAccounts)
+        AddAccountInput input, List<Transaction> existingAccounts)
     {
         var failures = new List<ResultFail>();
 
@@ -65,16 +65,16 @@ public class AddAccountUseCase(
         return _resultFactory.CreateFailure<AddAccountOutput>(failures);
     }
 
-    private async Task<Result<AddAccountOutput>> HandleDepositAsync(Account account, decimal amount)
+    private async Task<Result<AddAccountOutput>> HandleDepositAsync(Transaction transaction, decimal amount)
     {
         var success = await _amountService.MakeTransferAsync(
-            account, amount, "Open account");
+            transaction, amount, "Open account");
 
         if (success)
             return _resultFactory.CreateSuccess(
-                new AddAccountOutput() { AccountId = account.Id });
+                new AddAccountOutput() { AccountId = transaction.Id });
 
-        await _accountRepository.DeleteAsync(account.Id);
+        await _accountRepository.DeleteAsync(transaction.Id);
         return _resultFactory.CreateFailure<AddAccountOutput>(
             "DEPOSIT_TEMPORARILY_UNAVAILABLE",
             "Deposit is unavailable");

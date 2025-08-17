@@ -2,39 +2,45 @@ using Bank.Commons.Api;
 using Bank.Commons.Api.Extensions;
 using Bank.Transactions.Infrastructure.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace Bank.Transactions.Api;
 
-var bankAccountBaseAddress = Environment.GetEnvironmentVariable("BANK_ACCOUNT_BASE_ADDRESS");
-var limitAmountTransferVariable = Environment.GetEnvironmentVariable("LIMIT_AMOUNT_TRANSFER");  
-
-if (!decimal.TryParse(limitAmountTransferVariable, out var limitAmountTransfer))
-    throw new ArgumentException(limitAmountTransferVariable);   
-
-if (string.IsNullOrEmpty(bankAccountBaseAddress))
-    throw new ArgumentNullException(nameof(bankAccountBaseAddress));    
-
-var apiConfiguration = new ApiConfiguration()
+public class Program
 {
-    Title = "Bank Transactions API",
-    Description = "Bank Transactions API provides a methods to handle transactions",
-};
+    public static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+        var bankAccountBaseAddress = Environment.GetEnvironmentVariable("BANK_ACCOUNT_BASE_ADDRESS");
+        var limitAmountTransferVariable = Environment.GetEnvironmentVariable("LIMIT_AMOUNT_TRANSFER");  
 
-builder.Services.AddControllers();
-builder.Services.AddCommonsApi(apiConfiguration);
-builder.Services.AddBankTransactions(
-    bankAccountBaseAddress,
-    limitAmountTransfer);
+        if (!decimal.TryParse(limitAmountTransferVariable, out var limitAmountTransfer))
+            throw new ArgumentException(limitAmountTransferVariable);   
 
-var app = builder.Build();
+        if (string.IsNullOrEmpty(bankAccountBaseAddress))
+            throw new ArgumentNullException(nameof(bankAccountBaseAddress));    
 
-app.UseCommonsApi();
+        var apiConfiguration = new ApiConfiguration()
+        {
+            Title = "Bank Transactions API",
+            Description = "Bank Transactions API provides a methods to handle transactions",
+        };
 
-app.UseHttpsRedirection();
+        builder.Services.AddControllers();
+        builder.Services.AddCommonsApi(apiConfiguration);
+        builder.Services.AddBankTransactions(
+            bankAccountBaseAddress,
+            limitAmountTransfer);
 
-app.UseAuthorization();
+        var app = builder.Build();
 
-app.MapControllers();
+        app.UseCommonsApi();
 
-app.Run();
+        app.UseHttpsRedirection();
+
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        await app.RunAsync();
+    }
+}

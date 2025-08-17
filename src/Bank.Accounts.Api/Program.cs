@@ -1,42 +1,49 @@
-using Bank.Accounts.Api;
 using Bank.Accounts.Infrastructure.Extensions;
 using Bank.Commons.Api;
 using Bank.Commons.Api.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace Bank.Accounts.Api;
 
-var bankTransactionBaseAddress = Environment.GetEnvironmentVariable("BANK_TRANSACTION_BASE_ADDRESS");
-
-if (string.IsNullOrEmpty(bankTransactionBaseAddress))
-    throw new ArgumentNullException(nameof(bankTransactionBaseAddress));
-
-var apiConfiguration = new ApiConfiguration()
+public class Program
 {
-    Title = "Bank Accounts API",
-    Description = "Bank Accounts API provides a methods to handle accounts",
-};
+    public static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        var bankTransactionBaseAddress = Environment.GetEnvironmentVariable("BANK_TRANSACTION_BASE_ADDRESS");
+
+        if (string.IsNullOrEmpty(bankTransactionBaseAddress))
+            throw new ArgumentNullException(nameof(bankTransactionBaseAddress));
+
+        var apiConfiguration = new ApiConfiguration()
+        {
+            Title = "Bank Accounts API",
+            Description = "Bank Accounts API provides a methods to handle accounts",
+        };
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-builder
-    .Services
-        .AddCommonsApi(apiConfiguration)
-        .AddBankAccounts(bankTransactionBaseAddress)
-        .AddControllers();
+        builder
+            .Services
+            .AddCommonsApi(apiConfiguration)
+            .AddBankAccounts(bankTransactionBaseAddress)
+            .AddControllers();
 
-builder.Services.AddScoped<IAccountStubs, AccountStubs>();
+        builder.Services.AddScoped<IAccountStubs, AccountStubs>();
 
-var app = builder.Build();
+        var app = builder.Build();
 
-app.UseCommonsApi(); 
+        app.UseCommonsApi(); 
 
-app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
-app.MapControllers();
+        app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-    await scope.ServiceProvider.GetRequiredService<IAccountStubs>()
-        .AddAccountsAsync();
+        using (var scope = app.Services.CreateScope())
+            await scope.ServiceProvider.GetRequiredService<IAccountStubs>()
+                .AddAccountsAsync();
 
-app.Run();
+        await app.RunAsync();
+    }
+}

@@ -5,5 +5,5 @@ namespace Bank.Accounts.Infrastructure.Repositories;
 
 public class AccountContext(DbContextOptions<AccountContext> options) : DbContext(options)
 {
-    public DbSet<Account> Accounts { get; set; }
+    public DbSet<Transaction> Accounts { get; set; }
 }
