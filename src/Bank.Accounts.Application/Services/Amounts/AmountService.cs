@@ -40,11 +40,11 @@ public class AmountService(
         return accounts;
     }
 
-    private async Task<List<AmountApplication>?> GetAmountsAsync(List<Guid> accountsId)
+    private async Task<List<AccountBalanceApplication>?> GetAmountsAsync(List<Guid> accountsId)
     {
         var tasks = accountsId
             .Chunk(5).Select(ids => _bankTransactionsClient
-                .GetAmountsAsync(ids.ToList()));
+                .GetAccountsBalanceAsync(ids.ToList()));
 
         var results = await Task.WhenAll(tasks);
 

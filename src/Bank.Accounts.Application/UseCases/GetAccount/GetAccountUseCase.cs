@@ -10,12 +10,15 @@ namespace Bank.Accounts.Application.UseCases.GetAccount;
 public class GetAccountUseCase(
     IValidator<GetAccountInput> validator, 
     IAccountRepository accountRepository,
-    IResultFactory resultFactory,
-    IAccountApplicationMapper  accountApplicationMapper,
-    IAmountService amountService) : IGetAccountUseCase
+    IAccountApplicationMapper accountApplicationMapper,
+    IGetAccountOutputMapper accountOutputMapper,
+    IAmountService amountService,
+    IResultFactory resultFactory) : IGetAccountUseCase
 {
     private readonly IValidator<GetAccountInput> _validator = validator;
     private readonly IAccountRepository _accountRepository = accountRepository;
+    private readonly IAccountApplicationMapper _accountApplicationMapper = accountApplicationMapper;
+    private readonly IGetAccountOutputMapper _accountOutputMapper = accountOutputMapper;
     private readonly IResultFactory _resultFactory = resultFactory;
     private readonly IAmountService _amountService = amountService;
 
@@ -41,7 +44,7 @@ public class GetAccountUseCase(
             return _resultFactory.CreateFailure<GetAccountOutput>(
                 "ACCOUNT_NOT_FOUND", "Account not found");
 
-        var accountApplication = accountApplicationMapper
+        var accountApplication = _accountApplicationMapper
             .ToApplication(account);
 
         accountApplication = await _amountService
@@ -52,10 +55,7 @@ public class GetAccountUseCase(
                 "BALANCE_TEMPORARILY_UNAVAILABLE",
                 "balance temporarily unavailable");
 
-        var output = new GetAccountOutput()
-        {
-            Account = accountApplication
-        };
+        var output = _accountOutputMapper.Map(accountApplication);
         
         return _resultFactory.CreateSuccess(output);    
     }

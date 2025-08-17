@@ -60,6 +60,7 @@ public static class ServiceCollectionsExtensions
             .AddScoped<IAddAccountUseCase, AddAccountUseCase>()
             .AddSingleton<IAddAccountInputMapper, AddAccountInputMapper>()  
             .AddScoped<IGetAccountUseCase, GetAccountUseCase>()
+            .AddScoped<IGetAccountOutputMapper, GetAccountOutputMapper>()
             .AddScoped<IListAccountsUseCase, ListAccountsUseCase>();
     
     private static IServiceCollection AddApplicationValidator(this IServiceCollection services)

@@ -18,7 +18,7 @@ public class BankTransactionClient(
     private readonly IJsonSerializer _jsonSerializer = jsonSerializer;
     private readonly IResultFactory _resultFactory = resultFactory;
 
-    public async Task<Result<List<AmountApplication>>> GetAmountsAsync(List<Guid> accountIds)
+    public async Task<Result<List<AccountBalanceApplication>>> GetAccountsBalanceAsync(List<Guid> accountIds)
     {
         try
         {
@@ -33,17 +33,16 @@ public class BankTransactionClient(
             if (response.IsSuccessStatusCode)
             {
                 var transactionBalanceResponse = _jsonSerializer
-                    .Deserialize<TransactionBalanceResponse>(content);
+                    .Deserialize<GetAccountBalanceResponse>(content);
 
                 if (transactionBalanceResponse == null)
-                    return _resultFactory.CreateFailure<List<AmountApplication>>(
+                    return _resultFactory.CreateFailure<List<AccountBalanceApplication>>(
                         "GET_AMOUNT_WITH_FAILURE",
                         $"Status Code: {response.StatusCode} - Response: {content}");
 
                 return _resultFactory
                     .CreateSuccess(transactionBalanceResponse
-                        .AccountBalance
-                        .ToList());
+                        .AccountBalance);
             }
             else
             {
@@ -52,7 +51,7 @@ public class BankTransactionClient(
                     response.StatusCode,
                     content);
 
-                return _resultFactory.CreateFailure<List<AmountApplication>>(
+                return _resultFactory.CreateFailure<List<AccountBalanceApplication>>(
                     "GET_AMOUNT_WITH_FAILURE",
                     $"Status Code: {response.StatusCode} - Response: {content}");
             }
@@ -60,7 +59,7 @@ public class BankTransactionClient(
         catch (Exception e)
         {
             _logger.LogError(e, "Failed to get amount applications");
-            return _resultFactory.CreateFailure<List<AmountApplication>>(
+            return _resultFactory.CreateFailure<List<AccountBalanceApplication>>(
                 "GET_AMOUNT_ERROR", e.Message);
         }
     }
