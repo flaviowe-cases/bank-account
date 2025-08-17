@@ -1,21 +1,31 @@
 using Asp.Versioning.ApiExplorer;
 using Bank.Accounts.Api;
-using Bank.Accounts.Application.Repositories;
 using Bank.Accounts.Infrastructure.Extensions;
+using Bank.Commons.Api;
+using Bank.Commons.Api.Extensions;
+using Bank.Commons.Api.Swagger;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 var bankTransactionBaseAddress = Environment.GetEnvironmentVariable("BANK_TRANSACTION_BASE_ADDRESS");
 
 if (string.IsNullOrEmpty(bankTransactionBaseAddress))
     throw new ArgumentNullException(nameof(bankTransactionBaseAddress));
 
+var apiConfiguration = new ApiConfiguration()
+{
+    Title = "Bank Accounts API",
+    Description = "Bank Accounts API provides a methods to handle accounts",
+};
+
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder
     .Services
+        .AddCommonsApi(apiConfiguration)
         .AddSwaggerGen()
         .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
         .AddBankAccounts(bankTransactionBaseAddress)

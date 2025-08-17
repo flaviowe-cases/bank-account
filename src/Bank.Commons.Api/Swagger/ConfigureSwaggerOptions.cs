@@ -1,13 +1,16 @@
 using Asp.Versioning.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Bank.Accounts.Api;
+namespace Bank.Commons.Api.Swagger;
 
 public class ConfigureSwaggerOptions(
+    ApiConfiguration apiConfiguration,
     IApiVersionDescriptionProvider provider) : IConfigureOptions<SwaggerGenOptions> 
 {
+    private readonly ApiConfiguration _apiConfiguration = apiConfiguration;
     private readonly IApiVersionDescriptionProvider _provider = provider;
 
     public void Configure(SwaggerGenOptions options)
@@ -18,13 +21,13 @@ public class ConfigureSwaggerOptions(
         }
     }
 
-    private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+    private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
     {
         return new OpenApiInfo()
         {
-            Title = "Bank Accounts API",
+            Title = _apiConfiguration.Title,
             Version = description.ApiVersion.ToString(),
-            Description = "Bank Accounts API",
+            Description = _apiConfiguration.Description,
             Contact = new OpenApiContact() {Name = "Luis Flavio", Email = "flaviowe@hotmail.com"}, 
             License = new OpenApiLicense() { Name = "MIT", Url = new Uri( "https://opensource.org/licenses/MIT" ) }
         };
