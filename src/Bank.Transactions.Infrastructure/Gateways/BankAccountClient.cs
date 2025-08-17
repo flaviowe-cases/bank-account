@@ -1,8 +1,8 @@
 using System.Net;
-using Bank.Transactions.Application.Factories.Results;
+using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Models;
-using Bank.Transactions.Application.Serializers;
 using Microsoft.Extensions.Logging;
 
 namespace Bank.Transactions.Infrastructure.Gateways;

@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Bank.Accounts.Domain\Bank.Accounts.Domain.csproj" />
+      <ProjectReference Include="..\Bank.Commons.Applications\Bank.Commons.Applications.csproj" />
     </ItemGroup>
 
     <ItemGroup>

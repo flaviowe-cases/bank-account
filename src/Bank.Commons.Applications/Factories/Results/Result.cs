@@ -1,4 +1,4 @@
-namespace Bank.Accounts.Application.Factories.Results;
+namespace Bank.Commons.Applications.Factories.Results;
 
 public abstract class Result
 {

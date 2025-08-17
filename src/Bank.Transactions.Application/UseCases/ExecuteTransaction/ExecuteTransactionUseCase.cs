@@ -1,4 +1,4 @@
-using Bank.Transactions.Application.Factories.Results;
+using Bank.Commons.Applications.Factories.Results;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Models;
 using Bank.Transactions.Application.Services;

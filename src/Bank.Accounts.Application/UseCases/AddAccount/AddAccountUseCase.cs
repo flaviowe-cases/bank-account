@@ -1,10 +1,10 @@
 using Bank.Accounts.Application.Services.Amounts;
 using Bank.Accounts.Domain.Entities;
+using Bank.Commons.Applications.Factories.Results;
 using FluentValidation;
 
 namespace Bank.Accounts.Application.UseCases.AddAccount;
 
-using Factories.Results;
 using Repositories;
 
 public class AddAccountUseCase(

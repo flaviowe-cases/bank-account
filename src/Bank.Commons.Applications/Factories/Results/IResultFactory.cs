@@ -1,6 +1,6 @@
 using FluentValidation.Results;
 
-namespace Bank.Transactions.Application.Factories.Results;
+namespace Bank.Commons.Applications.Factories.Results;
 
 public interface IResultFactory
 {

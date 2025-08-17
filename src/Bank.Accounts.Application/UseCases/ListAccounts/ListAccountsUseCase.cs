@@ -1,8 +1,7 @@
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Mappers;
 using Bank.Accounts.Application.Repositories;
-using Bank.Accounts.Application.Services;
 using Bank.Accounts.Application.Services.Amounts;
+using Bank.Commons.Applications.Factories.Results;
 using FluentValidation;
 
 namespace Bank.Accounts.Application.UseCases.ListAccounts;

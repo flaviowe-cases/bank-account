@@ -1,4 +1,4 @@
-namespace Bank.Accounts.Application.Serializers;
+namespace Bank.Commons.Applications.Serializers;
 
 public interface IJsonSerializer
 {

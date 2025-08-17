@@ -1,4 +1,4 @@
-using Bank.Accounts.Application.Factories.Results;
+using Bank.Commons.Applications.Factories.Results;
 
 namespace Bank.Accounts.Application.UseCases.GetAccount;
 

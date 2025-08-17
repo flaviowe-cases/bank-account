@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Bank.Transactions.Application.Serializers;
+namespace Bank.Commons.Applications.Serializers;
 
 public class JsonSerializerDefault : IJsonSerializer
 {

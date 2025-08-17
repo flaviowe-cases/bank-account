@@ -1,4 +1,3 @@
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Gateways;
 using Bank.Accounts.Application.Models;
 using Bank.Accounts.Domain.Entities;

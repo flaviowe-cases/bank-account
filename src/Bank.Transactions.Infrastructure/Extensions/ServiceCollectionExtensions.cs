@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
-using Bank.Transactions.Application.Factories.Results;
+using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Repositories;
-using Bank.Transactions.Application.Serializers;
 using Bank.Transactions.Application.Services;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
 using Bank.Transactions.Application.UseCases.GetTransactionsBalance;
@@ -22,7 +22,8 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services, string bankAccountBaseAddress, decimal limitAmountTransfer)
         => services
             .AddBankApplication(limitAmountTransfer)
-            .AddBankInfrastructure(bankAccountBaseAddress);
+            .AddBankInfrastructure(bankAccountBaseAddress)
+            .AddCommons();
 
     private static IServiceCollection AddBankApplication(
         this IServiceCollection services, decimal limitAmountTransfer)
@@ -30,9 +31,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton(new TransferParameters() { LimitAmountTransfer = limitAmountTransfer })
             .AddSingleton(new ConcurrentDictionary<Guid, SemaphoreSlim>())
             .AddBankApplicationUseCases()
-            .AddBankApplicationFactories()
             .AddBankApplicationServices()
-            .AddBankApplicationSerializers()
             .AddBankApplicationValidator();
 
     private static IServiceCollection AddBankInfrastructure(
@@ -41,6 +40,12 @@ public static class ServiceCollectionExtensions
         => services
             .AddBankInfrastructureGateways(bankAccountBaseAddress)
             .AddBankInfrastructureRepositories();
+    
+    private static IServiceCollection AddCommons(
+        this IServiceCollection services)
+        => services
+            .AddSingleton<IResultFactory, ResultFactory>()
+            .AddSingleton<IJsonSerializer, JsonSerializerDefault>();
 
     private static IServiceCollection AddBankApplicationUseCases(this IServiceCollection services)
         => services
@@ -48,14 +53,6 @@ public static class ServiceCollectionExtensions
             .AddScoped<IGetTransactionsBalanceUseCase, GetTransactionsBalanceUseCase>()
             .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>();
 
-    private static IServiceCollection AddBankApplicationFactories(this IServiceCollection services)
-        => services
-            .AddSingleton<IResultFactory, ResultFactory>();
-
-    private static IServiceCollection AddBankApplicationSerializers(this IServiceCollection services)
-        => services
-            .AddSingleton<IJsonSerializer, JsonSerializerDefault>();
-    
     private static IServiceCollection AddBankApplicationServices(this IServiceCollection services)
         => services
             .AddScoped<IAmountService, AmountService>()

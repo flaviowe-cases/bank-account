@@ -1,14 +1,14 @@
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Gateways;
 using Bank.Accounts.Application.Mappers;
 using Bank.Accounts.Application.Repositories;
-using Bank.Accounts.Application.Serializers;
 using Bank.Accounts.Application.Services.Amounts;
 using Bank.Accounts.Application.UseCases.AddAccount;
 using Bank.Accounts.Application.UseCases.GetAccount;
 using Bank.Accounts.Application.UseCases.ListAccounts;
 using Bank.Accounts.Infrastructure.Gateways;
 using Bank.Accounts.Infrastructure.Repositories;
+using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Applications.Serializers;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,13 +22,12 @@ public static class ServiceCollectionsExtensions
         string bankTransactionBaseAddress)
         => services
             .AddApplication()
-            .AddInfrastructure(bankTransactionBaseAddress);
+            .AddInfrastructure(bankTransactionBaseAddress)
+            .AddCommons();
 
     private static IServiceCollection AddApplication(this IServiceCollection services)
         => services
-            .AddApplicationFactories()
             .AddApplicationMappers()
-            .AddApplicationSerializers()
             .AddApplicationServices()
             .AddUseCases()
             .AddApplicationValidator();
@@ -39,17 +38,15 @@ public static class ServiceCollectionsExtensions
             .AddInfrastructureGateways(bankTransactionBaseAddress)   
             .AddInfrastructureRepositories();
 
-    private static IServiceCollection AddApplicationFactories(this IServiceCollection services)
+    private static IServiceCollection AddCommons(
+        this IServiceCollection services)
         => services
-            .AddSingleton<IResultFactory, ResultFactory>();
+            .AddSingleton<IResultFactory, ResultFactory>()
+            .AddSingleton<IJsonSerializer, JsonSerializerDefault>();
     
     private static IServiceCollection AddApplicationMappers(this IServiceCollection services)
         => services
             .AddScoped<IAccountApplicationMapper, AccountApplicationMapper>();
-    
-    private static IServiceCollection AddApplicationSerializers(this IServiceCollection services)
-        => services
-            .AddSingleton<IJsonSerializer, JsonSerializerDefault>();
     
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
         => services

@@ -1,5 +1,5 @@
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Models;
+using Bank.Commons.Applications.Factories.Results;
 
 namespace Bank.Accounts.Application.Gateways;
 

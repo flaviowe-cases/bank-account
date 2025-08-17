@@ -1,6 +1,6 @@
 using Asp.Versioning;
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.UseCases.AddAccount;
+using Bank.Commons.Applications.Factories.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Accounts.Api.Controllers.AddAccount;

@@ -1,10 +1,10 @@
 using System.Net;
 using AutoFixture;
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Models;
-using Bank.Accounts.Application.Serializers;
 using Bank.Accounts.Infrastructure.Gateways;
 using Bank.Accounts.Unit.Test.Stubs;
+using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Applications.Serializers;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

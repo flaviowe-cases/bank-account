@@ -1,5 +1,5 @@
 using Asp.Versioning;
-using Bank.Transactions.Application.Factories.Results;
+using Bank.Commons.Applications.Factories.Results;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
 using Microsoft.AspNetCore.Mvc;
 

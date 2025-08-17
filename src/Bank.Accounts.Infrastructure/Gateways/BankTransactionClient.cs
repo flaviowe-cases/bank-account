@@ -1,8 +1,8 @@
 using System.Net.Http.Json;
-using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Gateways;
 using Bank.Accounts.Application.Models;
-using Bank.Accounts.Application.Serializers;
+using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Applications.Serializers;
 using Microsoft.Extensions.Logging;
 
 namespace Bank.Accounts.Infrastructure.Gateways;
