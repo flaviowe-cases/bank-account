@@ -59,7 +59,7 @@ public class AddAccountUseCase(
             failures.Add(new ResultFail
             {
                 Code = "ACCOUNT_NUMBER_ALREADY_EXISTS",
-                Message = "Account id already exists"
+                Message = "Account number already exists"
             });
 
         return _resultFactory.CreateFailure<AddAccountOutput>(failures);

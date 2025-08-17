@@ -1,0 +1,30 @@
+services:
+
+  accounts-api:
+    build:
+      context: ./src/
+      dockerfile: ./Account.Dockerfile
+    ports:
+      - "5005:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - BANK_TRANSACTION_BASE_ADDRESS=http://transactions-api:8080
+    networks:
+      - banknet
+
+  transactions-api:
+    build:
+      context: ./src/
+      dockerfile: ./Transaction.Dockerfile
+    ports:
+      - "5006:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - BANK_ACCOUNT_BASE_ADDRESS=http://accounts-api:8080
+      - LIMIT_AMOUNT_TRANSFER=10000
+    networks:
+      - banknet
+
+networks:
+  banknet:
+    driver: bridge

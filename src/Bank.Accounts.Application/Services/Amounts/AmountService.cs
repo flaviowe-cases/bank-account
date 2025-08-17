@@ -1,3 +1,4 @@
+using Bank.Accounts.Application.Factories.Results;
 using Bank.Accounts.Application.Gateways;
 using Bank.Accounts.Application.Models;
 using Bank.Accounts.Domain.Entities;
@@ -12,19 +13,25 @@ public class AmountService(
     private readonly ILogger<AmountService> _logger = logger;
     private readonly IBankTransactionsClient _bankTransactionsClient = bankTransactionsClient;
     
+    public async Task<AccountApplication?> LoadAmountAsync(AccountApplication account)
+    {
+        var accounts = await LoadAmountsAsync([account]);
+
+        return accounts?
+            .FirstOrDefault();
+    }
+
     public async Task<List<AccountApplication>?> LoadAmountsAsync(List<AccountApplication> accounts)
     {
         var amountsId =  accounts
             .Select(account => account.Id)
             .ToList();
 
-        var result = await _bankTransactionsClient.GetAmountsAsync(amountsId);
+        var amounts = await GetAmountsAsync(amountsId);
 
-        if (!result.Success)
+        if (amounts == null)
             return null;
 
-        var amounts = result.GetContent();
-        
         foreach (var accountApplication in accounts)
             accountApplication.Amount =  amounts
                 .FirstOrDefault(amount => amount.AccountId == accountApplication.Id)?
@@ -33,12 +40,20 @@ public class AmountService(
         return accounts;
     }
 
-    public async Task<AccountApplication?> LoadAmountAsync(AccountApplication account)
+    private async Task<List<AmountApplication>?> GetAmountsAsync(List<Guid> accountsId)
     {
-        var accounts = await LoadAmountsAsync([account]);
+        var tasks = accountsId
+            .Chunk(5).Select(ids => _bankTransactionsClient
+                .GetAmountsAsync(ids.ToList()));
 
-        return accounts?
-            .FirstOrDefault();
+        var results = await Task.WhenAll(tasks);
+
+        if (results.Any(result => !result.Success))
+            return null;
+        
+        return  results
+            .SelectMany(result => result.GetContent())
+            .ToList();  
     }
 
     public async Task<bool> MakeTransferAsync(Account account, decimal amount, string comments)
