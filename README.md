@@ -1,69 +1,82 @@
-# bank-account
+
+# Bank Account Microservices
+
+Este repositório contém uma solução de microsserviços para gerenciamento de contas bancárias e transações, desenvolvida em .NET 8.0. O projeto é composto por duas APIs principais, testes unitários e integrados, além de estar configurado para gerar dados de telemetria.
+
 
 ## Como executar o projeto
 
+
 ### Docker Compose
 
-1. Verficar se suas portas `5005` e `5006` estão disponiveis
-2. Rodar commando
-    ```sh
-    docker compose up -d
-    ```
-3. Abrir api de contas em [Account Api](http://localhost:5005/swagger)
-4. Abrir api de transações em [Transaction Api](http://localhost:5006/swagger)
+1. Verifique se as portas `5005` e `5006` estão disponíveis.
+2. Execute o comando:
+	```sh
+	docker compose up -d
+	```
+3. Acesse a documentação das APIs:
+	- [Account Api Swagger](http://localhost:5005/swagger)
+	- [Transaction Api Swagger](http://localhost:5006/swagger)
 
 
 ### Visual Studio
 1. Abra o Visual Studio.
 2. Selecione `File > Open > Project/Solution` e escolha o arquivo `Bank.sln` na pasta `src`.
-3. Selecione o projeto de inicialização desejado (ex: `Bank.Accounts.Api`).
+3. Defina o projeto de inicialização (ex: `Bank.Accounts.Api`).
 4. Pressione F5 para rodar em modo debug ou Ctrl+F5 para rodar sem debug.
+
 
 ### Visual Studio Code
 1. Abra a pasta do projeto no VS Code.
-2. Instale a extensão C# (caso não tenha).
-3. Abra o terminal integrado e execute:
+2. Instale a extensão C#.
+3. No terminal integrado, execute:
 	```sh
 	dotnet restore
 	dotnet run --project src/Bank.Accounts.Api/Bank.Accounts.Api.csproj
 	```
 4. Para rodar outros projetos, altere o caminho do `.csproj` conforme necessário.
 
+
 ### JetBrains Rider
 1. Abra o Rider.
 2. Selecione `Open` e escolha o arquivo `Bank.sln` na pasta `src`.
-3. Selecione o projeto de inicialização desejado.
+3. Defina o projeto de inicialização.
 4. Clique em Run ou Debug para iniciar o projeto.
+
 
 ## Arquitetura do Projeto
 
+
 ### Account Api
 
-Account api possui as seguintes ações:
+Principais endpoints:
+1. Buscar conta por `id` ou `accountNumber` (retorna uma única conta)
+2. Buscar contas de forma paginada
+3. Cadastrar contas (ao cadastrar, é feita uma requisição ao microserviço de transações para registrar o pagamento)
 
-1. Buscar conta por `id` ou `accountNumber`, retornar uma única conta
-2. Buscar contas de forma páginada
-3. Cadastrar contas `(ao cadastrar uma conta é realizado uma requisição no microservico de transações para registrar o pagamento)`
 
-### Transacion Api
+### Transaction Api
 
-Transaction api possui as seguintes ações:
+Principais endpoints:
+1. Listar o histórico de transações da conta por `accountNumber`
+2. Listar o saldo das contas passadas como parâmetro
+3. Realizar uma transação
 
-1. Listar o histórico de transações da conta  por `(accountNumber)` 
-2. Listar o saldo das contas passada como parametro
-3. Realizar uma transção
+Obs.: Transaction Api faz requisição para Account Api para validar se a conta existe.
 
-`Obs.: Transaction api faz requisição para Account Api, afim de validar se realmente a conta existe`
 
+
+## Testes
 
 ### Testes Unitários
-
-Foi realizado os testes unitarios com as seguintes libs
-
-1. NSubstitue: para `mockar` procedimentos
+Os testes unitários utilizam as seguintes bibliotecas:
+1. NSubstitute: para mockar procedimentos
 2. Fixture: para auto gerar dados fake
-3. FluentAssertions: reponsável por eliminar logica nos testes
+3. FluentAssertions: para simplificar asserções
 
 ### Testes Integrados
+Utilizado o WebApplicationFactory para simular o setup das duas APIs e validar cenários de integração.
 
-Testes integrados foi utilziado o WebApplicationFactory para simular setup das duas apis, foram realizados alguns testes
+## Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
