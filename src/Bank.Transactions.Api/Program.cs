@@ -25,6 +25,8 @@ public class Program
             Description = "Bank Transactions API provides a methods to handle transactions",
         };
 
+        builder.AddCommonsOpenTelemetry("transaction-api");
+
         builder.Services.AddControllers();
         builder.Services.AddCommonsApi(apiConfiguration);
         builder.Services.AddBankTransactions(

@@ -21,8 +21,7 @@ public class Program
             Description = "Bank Accounts API provides a methods to handle accounts",
         };
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        builder.AddCommonsOpenTelemetry("account-api");
 
         builder
             .Services
@@ -34,7 +33,7 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseCommonsApi(); 
+        app.UseCommonsApi();
 
         app.UseHttpsRedirection();
 
