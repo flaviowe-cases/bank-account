@@ -15,6 +15,7 @@ public class TransactionController(
     private readonly IGetTransactionsHistoryUseCase _getTransactionsHistoryUseCase = getTransactionsHistoryUseCase;
 
     [HttpGet("History/{accountNumber:int}")]
+    [EndpointDescription("Lists transactions balance by account")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTransactionsHistoryOutput))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultFail[]))]

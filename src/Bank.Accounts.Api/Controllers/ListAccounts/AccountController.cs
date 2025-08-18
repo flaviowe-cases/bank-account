@@ -15,6 +15,7 @@ public class AccountController(
     private readonly IListAccountsUseCase _listAccountsUseCase = listAccountsUseCase;
 
     [HttpGet()]
+    [EndpointDescription("Returns all accounts")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ListAccountsOutput))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultFail[]))]
     [ProducesResponseType(StatusCodes.Status503ServiceUnavailable, Type = typeof(ResultFail[]))]

@@ -15,6 +15,7 @@ public class TransactionController(
     private readonly IExecuteTransactionUseCase _executeTransactionUseCase = executeTransactionUseCase;
 
     [HttpPost]
+    [EndpointDescription("Creates a new transaction")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

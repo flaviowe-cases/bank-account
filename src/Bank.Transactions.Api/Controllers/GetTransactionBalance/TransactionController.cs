@@ -15,6 +15,7 @@ public class TransactionController(
     private readonly IGetTransactionsBalanceUseCase _getTransactionsBalanceUseCase = getTransactionsBalanceUseCase;
 
     [HttpGet("Balance")]
+    [EndpointDescription("Lists transactions balance by account")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetTransactionsBalanceOutput))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ResultFail[]))]
     public async Task<IActionResult> GetAsync([FromQuery] Guid[] accountId)
