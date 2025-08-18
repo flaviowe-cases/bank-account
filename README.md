@@ -6,6 +6,21 @@ Este repositório contém uma solução de microsserviços para gerenciamento de
 
 ## Como executar o projeto
 
+### Requerimentos
+
+Para rodar a aplicação, é necessario executar as duas apis ao mesmo tempo.
+
+### Para debug
+1. [.NET 8](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0) ou maior
+2. Uma das seguintes IDE
+	- [Visual Studio](https://visualstudio.microsoft.com/pt-br/)
+	- [Visual Studio Code](https://code.visualstudio.com)
+	- [Rider JetBrains](https://www.jetbrains.com/rider/)
+
+### Para executar standalone
+1. [Docker](https://www.docker.com)
+
+## Executar
 
 ### Docker Compose
 
