@@ -78,8 +78,9 @@ public static class ServiceCollectionsExtensions
     private static IServiceCollection AddInfrastructureRepositories(this IServiceCollection services)
         => services
             .AddEntityFrameworkInMemoryDatabase()
-            .AddDbContext<AccountContext>((sp, options) => options
-                .UseInMemoryDatabase("account")
-                .UseInternalServiceProvider(sp))
+            .AddDbContext<AccountContext>((sp, options) 
+                => options
+                    .UseInMemoryDatabase("accounts")
+                    .UseInternalServiceProvider(sp))
             .AddScoped<IAccountRepository, AccountRepository>();
 }

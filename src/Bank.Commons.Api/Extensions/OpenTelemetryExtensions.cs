@@ -11,15 +11,15 @@ namespace Bank.Commons.Api.Extensions;
 
 public static class OpenTelemetryExtensions
 {
-    private static readonly Action<OtlpExporterOptions> ConfigureExporter = (options) =>
-    {
-        options.Protocol = OtlpExportProtocol.Grpc;
-        options.Endpoint = new Uri("http://localhost:4317");
-    };
-    
     public static WebApplicationBuilder AddCommonsOpenTelemetry(this WebApplicationBuilder appBuilder,
-        string serviceName)
+        string serviceName, string endpoint, string protocol)
     {
+        Action<OtlpExporterOptions> configureExporter = (options) =>
+        {
+            options.Protocol = GetOpenTelemetryProtocol(protocol);
+            options.Endpoint = new Uri(endpoint);
+        };
+        
         appBuilder.Logging.ClearProviders();
 
         appBuilder.Services.AddOpenTelemetry()
@@ -29,22 +29,31 @@ public static class OpenTelemetryExtensions
 
             .WithTracing(builder
                 => builder
+                    .AddSource(serviceName)
                     .AddHttpClientInstrumentation()
                     .AddAspNetCoreInstrumentation()
-                    .AddOtlpExporter(ConfigureExporter))
+                    .AddOtlpExporter(configureExporter))
 
             .WithMetrics(builder
                 => builder
+                    .AddMeter(serviceName)
                     .AddHttpClientInstrumentation()
                     .AddAspNetCoreInstrumentation()
-                    .AddOtlpExporter(ConfigureExporter))
+                    .AddOtlpExporter(configureExporter))
 
             .WithLogging(builder
                 => builder
-                    .AddOtlpExporter(ConfigureExporter));
+                    .AddOtlpExporter(configureExporter)
+                    .AddConsoleExporter());
             
         return appBuilder;
     }
-        
 
+    private static OtlpExportProtocol GetOpenTelemetryProtocol(string protocol) =>
+        protocol.ToLower() switch
+        {
+            "http"  => OtlpExportProtocol.HttpProtobuf,
+            "http/protobuf" => OtlpExportProtocol.HttpProtobuf,
+            _ => OtlpExportProtocol.Grpc
+        };
 }

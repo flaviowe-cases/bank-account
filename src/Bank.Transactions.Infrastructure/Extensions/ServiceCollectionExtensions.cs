@@ -77,8 +77,9 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddBankInfrastructureRepositories(this IServiceCollection services)
         => services
             .AddEntityFrameworkInMemoryDatabase()
-            .AddDbContext<TransactionContext>((sp, options) => options
-                .UseInMemoryDatabase("transaction")
-                .UseApplicationServiceProvider(sp))
+            .AddDbContext<TransactionContext>((sp, options) 
+                => options
+                    .UseInMemoryDatabase("transactions")
+                    .UseInternalServiceProvider(sp))
             .AddScoped<ITransactionRepository, TransactionRepository>();
 }
