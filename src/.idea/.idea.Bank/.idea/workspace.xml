@@ -15,14 +15,6 @@
   <component name="ChangeListManager">
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Api/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Api/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Extensions/ServiceCollectionsExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Extensions/ServiceCollectionsExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,7 +316,7 @@
       <workItem from="1755562233509" duration="4571000" />
       <workItem from="1755566825775" duration="59000" />
       <workItem from="1755566895204" duration="908000" />
-      <workItem from="1755567893712" duration="306000" />
+      <workItem from="1755567893712" duration="712000" />
     </task>
     <servers />
   </component>
