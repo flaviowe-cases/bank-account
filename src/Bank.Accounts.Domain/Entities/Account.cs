@@ -1,6 +1,6 @@
 namespace Bank.Accounts.Domain.Entities;
 
-public class Transaction
+public class Account
 {
     public required Guid Id { get; init; }
     public required string Name { get; init; }

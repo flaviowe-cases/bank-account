@@ -4,5 +4,5 @@ namespace Bank.Accounts.Application.UseCases.AddAccount;
 
 public interface IAddAccountInputMapper
 {
-    Transaction ToDomain(AddAccountInput addAccountInput);
+    Account ToDomain(AddAccountInput addAccountInput);
 }

@@ -32,7 +32,7 @@ public class GetAccountUseCase(
                 "Invalid fields",
                 validation.Errors);
 
-        Transaction? account = null;
+        Account? account = null;
         
         if (input.AccountId.HasValue)
             account = await _accountRepository.GetByIdAsync(input.AccountId.Value);

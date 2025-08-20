@@ -5,18 +5,18 @@ namespace Bank.Accounts.Application.Mappers;
 
 public class AccountApplicationMapper : IAccountApplicationMapper
 {
-    public List<AccountApplication> ToApplication(List<Transaction> accounts)
+    public List<AccountApplication> ToApplication(List<Account> accounts)
         => accounts
             .Select(ToApplication)
             .ToList();  
 
-    public AccountApplication ToApplication(Transaction transaction)
+    public AccountApplication ToApplication(Account account)
     {
         return new AccountApplication
         {
-            Id = transaction.Id,
-            Name = transaction.Name,
-            Number = transaction.Number,
+            Id = account.Id,
+            Name = account.Name,
+            Number = account.Number,
             Amount = 0
         };
     }
