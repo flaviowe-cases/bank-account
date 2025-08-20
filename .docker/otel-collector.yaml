@@ -10,10 +10,7 @@ exporters:
   debug:
     verbosity: detailed
   prometheus:
-    endpoint: ":9201"
-    send_timestamps: true
-    metric_expiration: 180m
-    enable_open_metrics: true
+    endpoint: "otel-collector:8889"
   otlp:
     endpoint: tempo:4317
     tls:
