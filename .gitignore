@@ -418,5 +418,5 @@ FodyWeavers.xsd
 *.msp
 
 
-/.docker/loki-data/*
-/.docker/tempo-data/*
+/.docker/telemetry/loki-data/*
+/.docker/telemetry/tempo-data/*
