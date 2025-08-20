@@ -70,6 +70,17 @@ services:
     networks:
       - banknet
 
+  loki:
+    image: grafana/loki:latest
+    command: [ "-config.file=/etc/loki-config.yaml" ]
+    volumes:
+      - ./.docker/loki-config.yaml:/etc/loki-config.yaml
+      - ./.docker/loki-data:/tmp/loki
+    ports:
+      - "3100:3100"
+    networks:
+      - banknet
+
 # UI to query traces and metrics
   grafana:
     image: grafana/grafana:9.3.2

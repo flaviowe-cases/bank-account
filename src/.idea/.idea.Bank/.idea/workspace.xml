@@ -13,9 +13,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
-    </list>
+    <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -317,6 +315,7 @@
       <workItem from="1755566825775" duration="59000" />
       <workItem from="1755566895204" duration="908000" />
       <workItem from="1755567893712" duration="712000" />
+      <workItem from="1755714022825" duration="731000" />
     </task>
     <servers />
   </component>
@@ -415,10 +414,10 @@
           <line>73</line>
           <properties documentPath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Application/UseCases/GetAccountUseCaseTests.cs" containingFunctionPresentation="Method 'HandleAsync_With_AccountId_Should_Returns_Accounts'">
             <startOffsets>
-              <option value="2392" />
+              <option value="2388" />
             </startOffsets>
             <endOffsets>
-              <option value="2438" />
+              <option value="2434" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="31" />
@@ -428,10 +427,10 @@
           <line>187</line>
           <properties documentPath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Application/UseCases/GetAccountUseCaseTests.cs" containingFunctionPresentation="Method 'HandleAsync_Should_Returns_Accounts_Not_Found'">
             <startOffsets>
-              <option value="6118" />
+              <option value="6106" />
             </startOffsets>
             <endOffsets>
-              <option value="6164" />
+              <option value="6152" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="32" />
@@ -441,10 +440,10 @@
           <line>247</line>
           <properties documentPath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Application/UseCases/GetAccountUseCaseTests.cs" containingFunctionPresentation="Method 'HandleAsync_Should_Returns_Accounts_Balance_Temporarily_Unavailable'">
             <startOffsets>
-              <option value="8172" />
+              <option value="8156" />
             </startOffsets>
             <endOffsets>
-              <option value="8218" />
+              <option value="8202" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="33" />
