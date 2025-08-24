@@ -1,11 +1,10 @@
 using FluentValidation;
 
-namespace Bank.Transactions.Application.UseCases.ExecuteTransaction;
+namespace Bank.Transactions.Application.UseCases.CreateTransaction;
 
-public class ExecuteTransactionInputValidation 
-    : AbstractValidator<ExecuteTransactionInput>
+public class CreateTransactionInputValidator : AbstractValidator<CreateTransactionInput>
 {
-    public ExecuteTransactionInputValidation()
+    public CreateTransactionInputValidator()
     {
         RuleFor(x => x)
             .Must(x =>
@@ -36,5 +35,4 @@ public class ExecuteTransactionInputValidation
             .WithErrorCode("AMOUNT_ACCOUNT_MUST_GREATER_THAN_0")
             .WithMessage("Amount account number must be greater than 0.");
     }
-    
 }

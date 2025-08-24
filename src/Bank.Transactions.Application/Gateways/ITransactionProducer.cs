@@ -1,0 +1,8 @@
+using Bank.Transactions.Domain.Entities;
+
+namespace Bank.Transactions.Application.Gateways;
+
+public interface ITransactionProducer
+{
+    Task SendAsync(Transaction transaction);
+}   

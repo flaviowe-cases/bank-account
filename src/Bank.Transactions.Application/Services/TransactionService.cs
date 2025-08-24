@@ -19,52 +19,39 @@ public class TransactionService(
     private readonly ITransactionRepository _transactionRepository = transactionRepository;
     private readonly ConcurrentDictionary<Guid, SemaphoreSlim> _concurrent = concurrent;
 
-    public async Task<Transaction> ExecuteAsync(
-        Guid sourceAccountId,
-        Guid destinationAccountId,
-        decimal amount,
-        string? comments)
+    public async Task<Transaction> ExecuteAsync(Transaction transaction)
     {
-        var semaphoreId = sourceAccountId;
-        
+        var semaphoreId = transaction.SourceAccountId;
+
         if (semaphoreId.Equals(Guid.Empty))
-            semaphoreId = Guid.NewGuid();   
-        
+            semaphoreId = Guid.NewGuid();
+
         var semaphoreSlim = _concurrent.GetOrAdd(
-            semaphoreId, new SemaphoreSlim(1, 1));
+            semaphoreId, new SemaphoreSlim(
+                initialCount: 1, maxCount: 1));
 
         await semaphoreSlim.WaitAsync();
-        
+
         try
         {
-            var transaction = new Transaction
-            {
-                Id = Guid.NewGuid(),
-                SourceAccountId = sourceAccountId,
-                DestinationAccountId = destinationAccountId,
-                Amount = amount,
-                Comments = comments,
-                TimeStamp = DateTime.UtcNow,
-                Status = TransactionStatusType.Success
-            };
-
             if (!await CheckTransactionLimit(transaction))
                 return transaction;
 
             if (!await CheckSourceAccountFunds(transaction))
                 return transaction;
-            
-            await _transactionRepository.AddAsync(transaction);
+
+            transaction.Status = TransactionStatusType.Success;
+            await _transactionRepository.UpdateAsync(transaction);
             return transaction;
         }
         catch (Exception e)
         {
-            _logger.LogCritical(e, 
+            _logger.LogCritical(e,
                 "Error executing transfer " +
                 "from {SourceAccount} " +
-                "to {DestinationAccount}", 
-                sourceAccountId, 
-                destinationAccountId);
+                "to {DestinationAccount}",
+                transaction.SourceAccountId,
+                transaction.DestinationAccountId);
 
             throw;
         }
@@ -76,30 +63,30 @@ public class TransactionService(
 
     private async Task<bool> CheckTransactionLimit(Transaction transaction)
     {
-        if (transaction.Amount <= _transferParameters.LimitAmountTransfer) 
+        if (transaction.Amount <= _transferParameters.LimitAmountTransfer)
             return true;
 
         if (transaction.SourceAccountId.Equals(Guid.Empty))
             return true;
-        
+
         transaction.Status = TransactionStatusType.LimitExceeded;
-        await _transactionRepository.AddAsync(transaction);
+        await _transactionRepository.UpdateAsync(transaction);
         return false;
     }
-    
+
     private async Task<bool> CheckSourceAccountFunds(Transaction transaction)
     {
         if (transaction.SourceAccountId.Equals(Guid.Empty))
             return true;
-        
+
         var currentBalance = await _amountService
             .GetCurrentBalanceAsync(transaction.SourceAccountId);
-        
+
         if (currentBalance.Amount >= transaction.Amount)
             return true;
-        
+
         transaction.Status = TransactionStatusType.InsufficientFunds;
-        await _transactionRepository.AddAsync(transaction);
+        await _transactionRepository.UpdateAsync(transaction);
         return false;
     }
 }

@@ -8,16 +8,39 @@
     <projectFile profileName="https">Bank.Transacions.Domain/Bank.Transacions.Domain.csproj</projectFile>
     <projectFile profileName="http">Bank.Transactions.Api/Bank.Transactions.Api.csproj</projectFile>
     <projectFile profileName="https">Bank.Transactions.Api/Bank.Transactions.Api.csproj</projectFile>
+    <projectFile profileName="Bank.Transactions.Consumer">Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj</projectFile>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionInput.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionInputMapper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionInputValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionOutput.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/ICreateTransactionInputMapper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/ICreateTransactionUseCase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/OpenTelemetry/AplicationExporter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/ExecuteTransactionRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/CreateTransactionRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/TransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/TransactionController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Services/ITransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Services/ITransactionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Services/TransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Services/TransactionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionInput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionInputValidation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionOutput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionOutput.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionUseCase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionUseCase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Domain/Entities/TransactionStatusType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Domain/Entities/TransactionStatusType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Repositories/TransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Repositories/TransactionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,15 +117,21 @@
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionBalance/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionHistory/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/IBankAccountClient.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/AccountBalance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/BankAccount.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/TransactionHistory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Services/IAmountService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionUseCase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransactionsBalance/GetTransactionsBalanceInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransactionsBalance/GetTransactionsBalanceUseCase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransactionsHistory/GetTransactionsHistoryUseCase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Consumer/Extensions/ServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Consumer/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Domain/Entities/Transaction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Domain/Entities/TransactionStatusType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Domain/Entities/TransferParameters.cs" root0="FORCE_HIGHLIGHTING" />
@@ -135,12 +164,14 @@
     ".NET Launch Settings Profile.Bank.Accounts.Api: http.executor": "Debug",
     ".NET Launch Settings Profile.Bank.Accounts.Api: https.executor": "Run",
     ".NET Launch Settings Profile.Bank.Transactions.Api: http.executor": "Debug",
+    ".NET Launch Settings Profile.Bank.Transactions.Consumer.executor": "Debug",
+    ".NET Project.Bank.Transactions.Consumer.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "f5c8eef8-ae56-450c-8e3c-fdecf29b3e1c.executor": "Debug",
-    "git-widget-placeholder": "openobserver",
+    "git-widget-placeholder": "worker",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -150,7 +181,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Multi-Launch.Multi-Launch: Bank">
+  <component name="RunManager" selected=".NET Launch Settings Profile.Bank.Transactions.Consumer">
     <configuration name="Bank.Commons" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -165,6 +196,29 @@
       <option name="RUNTIME_ARGUMENTS" value="" />
       <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/Bank.Commons.Applications/Bank.Commons.Applications.csproj" />
+      <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+      <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+      <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+      <option name="PROJECT_KIND" value="DotNetCore" />
+      <option name="PROJECT_TFM" value="" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
+    <configuration name="Bank.Transactions.Consumer" type="DotNetProject" factoryName=".NET Project" activateToolWindowBeforeRun="false">
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="PTY_MODE" value="Auto" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
@@ -270,6 +324,22 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="Bank.Transactions.Consumer" type="LaunchSettings" factoryName=".NET Launch Settings Profile" activateToolWindowBeforeRun="false">
+      <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" />
+      <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
+      <option name="LAUNCH_PROFILE_NAME" value="Bank.Transactions.Consumer" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="USE_MONO" value="0" />
+      <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SEND_DEBUG_REQUEST" value="1" />
+      <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
+      <method v="2">
+        <option name="Build" />
+      </method>
+    </configuration>
     <configuration name="Multi-Launch: Bank" type="com.intellij.execution.configurations.multilaunch" factoryName="MultiLaunchConfiguration">
       <rows>
         <ExecutableRowSnapshot>
@@ -325,7 +395,7 @@
       <workItem from="1755567893712" duration="712000" />
       <workItem from="1755714022825" duration="731000" />
       <workItem from="1755982839063" duration="10271000" />
-      <workItem from="1756001645892" duration="4766000" />
+      <workItem from="1756001645892" duration="14130000" />
     </task>
     <servers />
   </component>
@@ -554,17 +624,17 @@
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs</url>
-          <line>18</line>
-          <properties documentPath="$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs" containingFunctionPresentation="Method 'Export'">
+          <url>file://$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs</url>
+          <line>14</line>
+          <properties documentPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" containingFunctionPresentation="Method 'StartAsync'">
             <startOffsets>
-              <option value="574" />
+              <option value="450" />
             </startOffsets>
             <endOffsets>
-              <option value="655" />
+              <option value="504" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="62" />
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

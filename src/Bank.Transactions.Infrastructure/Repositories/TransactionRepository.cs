@@ -15,6 +15,14 @@ public class TransactionRepository(IMongoDatabase mongoDatabase) : ITransactionR
             .InsertOneAsync(transaction);
     }
 
+    public async Task UpdateAsync(Transaction transaction)
+    {
+        var filter = Builders<Transaction>.Filter
+            .Eq(transactionField => transactionField.Id, transaction.Id);
+        
+        await _collection.ReplaceOneAsync(filter, transaction);
+    }
+
     public async Task<List<Transaction>> GetByAccountIdAsync(
         Guid accountId,
         TransactionStatusType? status = null)

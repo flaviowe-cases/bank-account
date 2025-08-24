@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Bank.Commons.Applications.Factories.Results;
+using Bank.Transactions.Application.UseCases.CreateTransaction;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,20 +11,18 @@ namespace Bank.Transactions.Api.Controllers.ExecuteTransaction;
 [Route("api/v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 public class TransactionController(
-    IExecuteTransactionUseCase executeTransactionUseCase) : Controller
+    ICreateTransactionUseCase createTransactionUseCase) : Controller
 {
-    private readonly IExecuteTransactionUseCase _executeTransactionUseCase = executeTransactionUseCase;
+    private readonly ICreateTransactionUseCase _createTransactionUseCase = createTransactionUseCase;
 
     [HttpPost]
     [EndpointDescription("Creates a new transaction")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<IActionResult> PostAsync([FromBody] ExecuteTransactionRequest request)
     {
-        var input = new ExecuteTransactionInput()
+        var input = new CreateTransactionInput()
         {
             SourceAccountNumber = request.SourceAccountNumber,
             DestinationAccountNumber = request.DestinationAccountNumber,
@@ -31,13 +30,13 @@ public class TransactionController(
             Comments = request.Comments,
         };
         
-        var output = await _executeTransactionUseCase
+        var output = await _createTransactionUseCase
             .HandleAsync(input);
         
         return CreateResponse(output);
     }
 
-    private IActionResult CreateResponse(Result<ExecuteTransactionOutput> output)
+    private IActionResult CreateResponse(Result<CreateTransactionOutput> output)
     {
         if (output.Success)
             return Created();
@@ -50,16 +49,7 @@ public class TransactionController(
 
         if (output.ContainsFailure("DESTINATION_ACCOUNT_NOT_FOUNT"))
             return NotFound(output.Failures);
-
-        if (output.ContainsFailure("INSUFFICIENT_FUNDS"))
-            return StatusCode(422, output.Failures);
-
-        if (output.ContainsFailure("LIMIT_EXCEEDED"))
-            return StatusCode(422, output.Failures);
-
-        if (output.ContainsFailure("TRANSFER_FAILED"))
-            return StatusCode(422, output.Failures);
-
+        
         if (output.ContainsFailure("SERVICE_TEMPORARILY_UNAVAILABLE"))
             return StatusCode(503, output.Failures);
         

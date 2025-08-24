@@ -2,7 +2,8 @@ namespace Bank.Transactions.Domain.Entities;
 
 public enum TransactionStatusType
 {
-    Success,
-    InsufficientFunds,
-    LimitExceeded,
+    Pending = 0,
+    Success = 1,
+    InsufficientFunds = 2,
+    LimitExceeded = 3,
 }
