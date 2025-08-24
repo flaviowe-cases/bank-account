@@ -19,15 +19,21 @@ exporters:
     endpoint: http://loki:3100/otlp
     tls:
       insecure: true
+  otlphttp/openobserve:
+    endpoint: http://openobserve:5080/api/default/
+    headers:
+      Authorization: "Basic cm9vdEBleGFtcGxlLmNvbTpDb21wbGV4cGFzcyMxMjM="
+    tls:
+      insecure: true
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [debug, otlp]
+      exporters: [debug, otlp, otlphttp/openobserve]
     metrics:
       receivers: [otlp]
-      exporters: [debug, prometheus]
+      exporters: [debug, prometheus, otlphttp/openobserve]
     logs:
       receivers: [otlp]
-      exporters: [debug, otlphttp]
+      exporters: [debug, otlphttp, otlphttp/openobserve]
