@@ -9,7 +9,7 @@ using OpenTelemetry.Trace;
 
 namespace Bank.Transactions.Consumer.Extensions;
 
-public static class ServiceCollectionExtensions
+public static class ApplicationOpenTelemetryExtensions
 {
     public static IServiceCollection AddBankTransactionsOpenTelemetry(
         this IServiceCollection services,

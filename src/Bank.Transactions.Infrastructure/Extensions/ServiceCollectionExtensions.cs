@@ -10,6 +10,7 @@ using Bank.Transactions.Application.UseCases.GetTransactionsHistory;
 using Bank.Transactions.Domain.Entities;
 using Bank.Transactions.Infrastructure.Gateways;
 using Bank.Transactions.Infrastructure.Repositories;
+using Confluent.Kafka;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -21,22 +22,17 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddBankTransactions(
         this IServiceCollection services, 
-        string bankAccountBaseAddress, 
-        decimal limitAmountTransfer,
-        string transactionConnectionString,
-        string transactionDatabaseName)
+        BankTransactionConfigure configuration)
         => services
-            .AddBankApplication(limitAmountTransfer)
-            .AddBankInfrastructure(
-                bankAccountBaseAddress,
-                transactionConnectionString, 
-                transactionDatabaseName)
+            .AddBankApplication(configuration)
+            .AddBankInfrastructure(configuration)
             .AddCommons();
 
     private static IServiceCollection AddBankApplication(
-        this IServiceCollection services, decimal limitAmountTransfer)
+        this IServiceCollection services, BankTransactionConfigure configuration)
         => services
-            .AddSingleton(new TransferParameters() { LimitAmountTransfer = limitAmountTransfer })
+            .AddSingleton(new TransferParameters() 
+                { LimitAmountTransfer = configuration.LimitAmountTransfer })
             .AddSingleton(new ConcurrentDictionary<Guid, SemaphoreSlim>())
             .AddBankApplicationUseCases()
             .AddBankApplicationServices()
@@ -44,14 +40,12 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddBankInfrastructure(
         this IServiceCollection services,
-        string bankAccountBaseAddress,
-        string transactionConnectionString,
-        string transactionDatabaseName)
+        BankTransactionConfigure configuration)
         => services
-            .AddBankInfrastructureGateways(bankAccountBaseAddress)
+            .AddBankInfrastructureGateways(configuration.BankAccountBaseAddress)
             .AddBankInfrastructureRepositories(
-                transactionConnectionString,
-                transactionDatabaseName);
+                configuration.TransactionConnectionString,
+                configuration.TransactionDatabaseName);
     
     private static IServiceCollection AddCommons(
         this IServiceCollection services)
@@ -98,7 +92,7 @@ public static class ServiceCollectionExtensions
                     .MappingEntities()
                     .GetDatabase(databaseName))
             .AddSingleton<ITransactionRepository, TransactionRepository>();
-
+    
     private static MongoClient CreateMongoClient(string connectionString)
     {
         var clientSettings = MongoClientSettings.FromConnectionString(connectionString);

@@ -4,5 +4,5 @@ namespace Bank.Transactions.Application.Gateways;
 
 public interface ITransactionProducer
 {
-    Task SendAsync(Transaction transaction);
+    Task ExecuteTransactionAsync(Transaction transaction);
 }   

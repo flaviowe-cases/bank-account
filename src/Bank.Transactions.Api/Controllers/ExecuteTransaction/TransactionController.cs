@@ -1,7 +1,6 @@
 using Asp.Versioning;
 using Bank.Commons.Applications.Factories.Results;
 using Bank.Transactions.Application.UseCases.CreateTransaction;
-using Bank.Transactions.Application.UseCases.ExecuteTransaction;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Transactions.Api.Controllers.ExecuteTransaction;

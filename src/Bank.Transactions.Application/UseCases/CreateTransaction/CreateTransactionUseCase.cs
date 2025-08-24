@@ -65,7 +65,7 @@ public class CreateTransactionUseCase(
         
         await _transactionRepository.AddAsync(transaction);
         
-        await _transactionProducer.SendAsync(transaction);
+        await _transactionProducer.ExecuteTransactionAsync(transaction);
 
         return _resultFactory.CreateSuccess(new CreateTransactionOutput()
         {

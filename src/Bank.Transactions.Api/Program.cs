@@ -1,5 +1,6 @@
 using Bank.Commons.Api;
 using Bank.Commons.Api.Extensions;
+using Bank.Transactions.Infrastructure;
 using Bank.Transactions.Infrastructure.Extensions;
 
 namespace Bank.Transactions.Api;
@@ -48,11 +49,13 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddCommonsApi(apiConfiguration);
-        builder.Services.AddBankTransactions(
-            bankAccountBaseAddress,
-            limitAmountTransfer,
-            transactionConnectionString,
-            databaseName);
+        builder.Services.AddBankTransactions(new BankTransactionConfigure
+        {
+            BankAccountBaseAddress = bankAccountBaseAddress,
+            LimitAmountTransfer = limitAmountTransfer,
+            TransactionConnectionString = transactionConnectionString,
+            TransactionDatabaseName = databaseName
+        });
 
         var app = builder.Build();
 
