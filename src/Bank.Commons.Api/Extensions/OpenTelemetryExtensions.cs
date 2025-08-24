@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -30,6 +31,8 @@ public static class OpenTelemetryExtensions
             .WithTracing(builder
                 => builder
                     .AddSource(serviceName)
+                    .AddSource("MongoDB.Driver.Core.Extensions.DiagnosticSources")
+                    .AddNpgsql()
                     .AddHttpClientInstrumentation()
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(configureExporter))

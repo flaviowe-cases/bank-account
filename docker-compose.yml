@@ -11,6 +11,7 @@ services:
       - BANK_TRANSACTION_BASE_ADDRESS=http://transactions-api:8080
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - ACCOUNT_DB_CONNECTION_STRING=Host=account-db;Database=account;Username=admin;Password=admin
     networks:
       - banknet
 
@@ -26,6 +27,8 @@ services:
       - LIMIT_AMOUNT_TRANSFER=10000 
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - TRANSACTION_DB_CONNECTION_STRING=mongodb://admin:admin@transaction-db:27017/transaction?authSource=admin
+      - TRANSACTION_DATABASE=transaction
     networks:
       - banknet
 
@@ -117,7 +120,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
-      - MONGO_INITDB_DATABASE=transaction-db
+      - MONGO_INITDB_DATABASE=transaction
     ports:
       - "27017:27017"
     volumes:

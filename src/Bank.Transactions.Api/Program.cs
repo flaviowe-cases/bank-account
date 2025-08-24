@@ -14,6 +14,8 @@ public class Program
         var limitAmountTransferVariable = Environment.GetEnvironmentVariable("LIMIT_AMOUNT_TRANSFER"); 
         var openTelemetryEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT");
         var openTelemetryProtocol = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_PROTOCOL");
+        var transactionConnectionString = Environment.GetEnvironmentVariable("TRANSACTION_DB_CONNECTION_STRING");
+        var databaseName = Environment.GetEnvironmentVariable("TRANSACTION_DATABASE");
 
         if (!decimal.TryParse(limitAmountTransferVariable, out var limitAmountTransfer))
             throw new ArgumentException(limitAmountTransferVariable);   
@@ -26,6 +28,12 @@ public class Program
 
         if (string.IsNullOrEmpty(openTelemetryProtocol))
             throw new ArgumentNullException(nameof(openTelemetryProtocol));
+        
+        if (string.IsNullOrEmpty(transactionConnectionString))
+            throw new ArgumentNullException(nameof(transactionConnectionString));
+        
+        if (string.IsNullOrEmpty(databaseName))
+            throw new ArgumentNullException(nameof(databaseName));
         
         var apiConfiguration = new ApiConfiguration()
         {
@@ -42,7 +50,9 @@ public class Program
         builder.Services.AddCommonsApi(apiConfiguration);
         builder.Services.AddBankTransactions(
             bankAccountBaseAddress,
-            limitAmountTransfer);
+            limitAmountTransfer,
+            transactionConnectionString,
+            databaseName);
 
         var app = builder.Build();
 

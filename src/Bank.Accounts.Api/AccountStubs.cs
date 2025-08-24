@@ -10,6 +10,12 @@ public class AccountStubs(
 
     public async Task AddAccountsAsync()
     {
+        var accounts = await _accountRepository
+            .GetAllAsync(1, 10);
+        
+        if (accounts.Any())
+            return;
+        
         await _accountRepository.AddAsync(new Account()
         {
             Id = Guid.Parse("9923bf1e-048f-469d-9b27-be35d08f1979"),

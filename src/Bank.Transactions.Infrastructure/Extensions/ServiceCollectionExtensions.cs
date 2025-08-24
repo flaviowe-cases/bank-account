@@ -11,18 +11,25 @@ using Bank.Transactions.Domain.Entities;
 using Bank.Transactions.Infrastructure.Gateways;
 using Bank.Transactions.Infrastructure.Repositories;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 
 namespace Bank.Transactions.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddBankTransactions(
-        this IServiceCollection services, string bankAccountBaseAddress, decimal limitAmountTransfer)
+        this IServiceCollection services, 
+        string bankAccountBaseAddress, 
+        decimal limitAmountTransfer,
+        string transactionConnectionString,
+        string transactionDatabaseName)
         => services
             .AddBankApplication(limitAmountTransfer)
-            .AddBankInfrastructure(bankAccountBaseAddress)
+            .AddBankInfrastructure(
+                bankAccountBaseAddress,
+                transactionConnectionString, 
+                transactionDatabaseName)
             .AddCommons();
 
     private static IServiceCollection AddBankApplication(
@@ -36,10 +43,14 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddBankInfrastructure(
         this IServiceCollection services,
-        string bankAccountBaseAddress)
+        string bankAccountBaseAddress,
+        string transactionConnectionString,
+        string transactionDatabaseName)
         => services
             .AddBankInfrastructureGateways(bankAccountBaseAddress)
-            .AddBankInfrastructureRepositories();
+            .AddBankInfrastructureRepositories(
+                transactionConnectionString,
+                transactionDatabaseName);
     
     private static IServiceCollection AddCommons(
         this IServiceCollection services)
@@ -74,12 +85,16 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddBankInfrastructureRepositories(this IServiceCollection services)
+    private static IServiceCollection AddBankInfrastructureRepositories(
+        this IServiceCollection services,
+        string connectionString,
+        string databaseName)
         => services
-            .AddEntityFrameworkInMemoryDatabase()
-            .AddDbContext<TransactionContext>((sp, options) 
-                => options
-                    .UseInMemoryDatabase("transactions")
-                    .UseInternalServiceProvider(sp))
-            .AddScoped<ITransactionRepository, TransactionRepository>();
+            .AddSingleton<IMongoClient>(
+                new MongoClient(connectionString))
+            .AddSingleton<IMongoDatabase>(
+                sp =>  sp.GetRequiredService<IMongoClient>()
+                    .MappingEntities()
+                    .GetDatabase(databaseName))
+            .AddSingleton<ITransactionRepository, TransactionRepository>();
 }

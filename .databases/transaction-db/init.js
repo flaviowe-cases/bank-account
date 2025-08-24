@@ -4,8 +4,8 @@ db.createUser(
             pwd: "admin",
             roles: [
                 {
-                    role: "dbAdmin",
-                    db: "transaction-db"
+                    role: "dbOwner",
+                    db: "transaction"
                 }
             ]
         }

@@ -13,7 +13,8 @@ public class Program
         var bankTransactionBaseAddress = Environment.GetEnvironmentVariable("BANK_TRANSACTION_BASE_ADDRESS");
         var openTelemetryEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT");
         var openTelemetryProtocol = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_PROTOCOL");
-
+        var accountConnectionString = Environment.GetEnvironmentVariable("ACCOUNT_DB_CONNECTION_STRING");
+        
         if (string.IsNullOrEmpty(bankTransactionBaseAddress))
             throw new ArgumentNullException(nameof(bankTransactionBaseAddress));
 
@@ -22,6 +23,9 @@ public class Program
 
         if (string.IsNullOrEmpty(openTelemetryProtocol))
             throw new ArgumentNullException(nameof(openTelemetryProtocol));
+        
+        if (string.IsNullOrEmpty(accountConnectionString))
+            throw new ArgumentNullException(nameof(accountConnectionString));
 
         var apiConfiguration = new ApiConfiguration()
         {
@@ -37,7 +41,9 @@ public class Program
         builder
             .Services
             .AddCommonsApi(apiConfiguration)
-            .AddBankAccounts(bankTransactionBaseAddress)
+            .AddBankAccounts(
+                bankTransactionBaseAddress, 
+                accountConnectionString)
             .AddControllers();
 
         builder.Services.AddScoped<IAccountStubs, AccountStubs>();

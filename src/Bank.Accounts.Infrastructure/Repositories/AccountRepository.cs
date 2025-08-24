@@ -61,13 +61,8 @@ public class AccountRepository(
 
     public async Task DeleteAsync(Guid accountId)
     {
-        var account = await _accountContext.Accounts
-            .FirstOrDefaultAsync(account => account.Id == accountId);
-        
-        if (account == null)
-            return;
-        
-        _accountContext.Remove(account);
-        await _accountContext.SaveChangesAsync();
+        await _accountContext.Accounts
+            .Where(account => account.Id == accountId)
+            .ExecuteDeleteAsync();
     }
 }
