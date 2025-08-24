@@ -13,7 +13,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="" />
+    <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -134,7 +138,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "f5c8eef8-ae56-450c-8e3c-fdecf29b3e1c.executor": "Debug",
-    "git-widget-placeholder": "databases",
+    "git-widget-placeholder": "openobserver",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -319,6 +323,7 @@
       <workItem from="1755567893712" duration="712000" />
       <workItem from="1755714022825" duration="731000" />
       <workItem from="1755982839063" duration="10271000" />
+      <workItem from="1756001645892" duration="328000" />
     </task>
     <servers />
   </component>

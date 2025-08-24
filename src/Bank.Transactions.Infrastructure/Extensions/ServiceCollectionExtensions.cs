@@ -13,6 +13,7 @@ using Bank.Transactions.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Extensions.DiagnosticSources;
 
 namespace Bank.Transactions.Infrastructure.Extensions;
 
@@ -91,10 +92,19 @@ public static class ServiceCollectionExtensions
         string databaseName)
         => services
             .AddSingleton<IMongoClient>(
-                new MongoClient(connectionString))
+                CreateMongoClient(connectionString))
             .AddSingleton<IMongoDatabase>(
                 sp =>  sp.GetRequiredService<IMongoClient>()
                     .MappingEntities()
                     .GetDatabase(databaseName))
             .AddSingleton<ITransactionRepository, TransactionRepository>();
+
+    private static MongoClient CreateMongoClient(string connectionString)
+    {
+        var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
+        var options = new InstrumentationOptions { CaptureCommandText = true };
+        clientSettings.ClusterConfigurator = cb => 
+            cb.Subscribe(new DiagnosticsActivityEventSubscriber(options));
+        return new MongoClient(clientSettings);
+    }
 }
