@@ -1,3 +1,4 @@
+using Bank.Commons.Api.OpenTelemetry;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -7,6 +8,7 @@ using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using SimpleLogRecordExportProcessor = OpenTelemetry.SimpleLogRecordExportProcessor;
 
 namespace Bank.Commons.Api.Extensions;
 
@@ -47,7 +49,7 @@ public static class OpenTelemetryExtensions
             .WithLogging(builder
                 => builder
                     .AddOtlpExporter(configureExporter)
-                    .AddConsoleExporter());
+                    .AddApiExporter());
             
         return appBuilder;
     }
@@ -59,4 +61,10 @@ public static class OpenTelemetryExtensions
             "http/protobuf" => OtlpExportProtocol.HttpProtobuf,
             _ => OtlpExportProtocol.Grpc
         };
+
+    private static LoggerProviderBuilder AddApiExporter(this LoggerProviderBuilder builder)
+        => builder
+            .AddProcessor(
+                new SimpleLogRecordExportProcessor(
+                    new ApiExporter()));
 }

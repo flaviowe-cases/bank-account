@@ -14,9 +14,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +40,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/42e22a24527d5d22c19ad27022521aa1c09b8f8188aa38d3e0d76df5c1cb474a/Guid.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/706dd6efc0c82dd17534851f72e6fbc1c38ddd5bedcbe369a8839aa2d5281e41/UriExt.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7350d9bb7b226db2f95f95272cf4db809f34538a3e6e952f75ace3a5528d42ac/EndpointMethodInfoApiExplorerServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/775a9b8427cb327eb11cbdd59abd3efa7ef42729137c6dae6978f949c5567c74/ConsoleExporterLoggingExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/79158649bd7c66c32349fc6782b958e898fee955db6498ffdb52e869ea7bcfb/NpgsqlDbContextOptionsBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d81b2d4f22bee75e5438c707251ae43cb0974c207db91ffc159118c84b4eb9/ServiceProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85e97f467d698c9e98eae9e3a1b39d58541173e57992d8f7111eabdd3db3526/HttpResponseMessage.cs" root0="FORCE_HIGHLIGHTING" />
@@ -86,6 +88,7 @@
     <setting file="file://$PROJECT_DIR$/Bank.Commons.Api/Extensions/OpenTelemetryExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Commons.Api/Extensions/ServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Commons.Api/Extensions/WebApplicationExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/ExecuteTransactionRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionBalance/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
@@ -103,7 +106,6 @@
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Domain/Entities/Transaction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Domain/Entities/TransactionStatusType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Domain/Entities/TransferParameters.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/IMongoClientExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/BankAccountClient.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/BankAccountResponse.cs" root0="FORCE_HIGHLIGHTING" />
@@ -130,9 +132,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.Bank.Accounts.Api: http.executor": "Run",
+    ".NET Launch Settings Profile.Bank.Accounts.Api: http.executor": "Debug",
     ".NET Launch Settings Profile.Bank.Accounts.Api: https.executor": "Run",
-    ".NET Launch Settings Profile.Bank.Transactions.Api: http.executor": "Run",
+    ".NET Launch Settings Profile.Bank.Transactions.Api: http.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -323,7 +325,7 @@
       <workItem from="1755567893712" duration="712000" />
       <workItem from="1755714022825" duration="731000" />
       <workItem from="1755982839063" duration="10271000" />
-      <workItem from="1756001645892" duration="328000" />
+      <workItem from="1756001645892" duration="4766000" />
     </task>
     <servers />
   </component>
@@ -550,6 +552,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs</url>
+          <line>18</line>
+          <properties documentPath="$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs" containingFunctionPresentation="Method 'Export'">
+            <startOffsets>
+              <option value="574" />
+            </startOffsets>
+            <endOffsets>
+              <option value="655" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
