@@ -14,6 +14,9 @@ services:
       - ACCOUNT_DB_CONNECTION_STRING=Host=account-db;Database=account;Username=admin;Password=admin
     networks:
       - banknet
+    depends_on:
+      account-db:
+        condition: service_healthy
 
   transactions-api:
     build:
@@ -31,10 +34,12 @@ services:
       - TRANSACTION_DATABASE=transaction
     networks:
       - banknet
+    depends_on:
+      - transaction-db
 
 # OTEL Collector to receive logs, metrics and traces from the application
   otel-collector:
-    image: otel/opentelemetry-collector:0.111.0
+    image: otel/opentelemetry-collector:latest
     command: [ "--config=/etc/otel-collector.yaml" ]
     volumes:
       - ./.docker/telemetry/otel-collector.yaml:/etc/otel-collector.yaml
@@ -86,7 +91,7 @@ services:
 
 # UI to query traces and metrics
   grafana:
-    image: grafana/grafana:9.3.2
+    image: grafana/grafana:latest
     volumes:
       - ./.docker/telemetry/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     environment:
@@ -111,6 +116,12 @@ services:
     volumes:
       - account-db-data:/var/lib/postgresql/data
       - .databases/account-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     networks:
       - banknet
 
