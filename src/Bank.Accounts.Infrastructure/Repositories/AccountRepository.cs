@@ -44,6 +44,7 @@ public class AccountRepository(
             select account;
 
         query = query
+            .OrderBy(account => account.Number)
             .Skip(pageSize * (pageNumber - 1))
             .Take(pageSize);
         
