@@ -12,17 +12,18 @@ public static class WebApplicationExtensions
     {
         app.UseMiddleware<ExceptionMiddleware>();
 
-        if (app.Environment.IsDevelopment() || showSwagger)
+        if (!app.Environment.IsDevelopment() && !showSwagger) 
+            return app;
+        
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-                foreach (var description in provider.ApiVersionDescriptions)
-                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                        description.GroupName.ToLowerInvariant());
-            });
-        }
+            var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+            foreach (var description in provider.ApiVersionDescriptions)
+                options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+                    description.GroupName.ToLowerInvariant());
+        });
+        
         return app;
     }
 }

@@ -68,9 +68,7 @@ public class Program
         var app = builder.Build();
 
         app.UseCommonsApi();
-
         app.UseHttpsRedirection();
-
         app.MapControllers();
 
         await app.RunAsync();

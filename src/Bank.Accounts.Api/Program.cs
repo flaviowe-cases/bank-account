@@ -51,9 +51,7 @@ public class Program
         var app = builder.Build();
 
         app.UseCommonsApi();
-
         app.UseHttpsRedirection();
-
         app.MapControllers();
 
         using (var scope = app.Services.CreateScope())
