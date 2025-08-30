@@ -4,28 +4,30 @@ using Confluent.Kafka;
 
 namespace Bank.Transactions.Infrastructure.Gateways;
 
-public class TransactionProducer : ITransactionProducer
+public class TransactionProducer(
+    IProducer<Guid, TransactionMessage> producer) : ITransactionProducer
 {
-    private readonly IProducer<Guid, Transaction> _producer;
+    private const string Topic = "execute-transaction";
 
-    public TransactionProducer(
-        BankTransactionConfigure configure)
+    private readonly IProducer<Guid, TransactionMessage> _producer = producer;
+
+    public Task ExecuteTransactionAsync(Transaction transaction)
     {
-        var producerConfig = new ProducerConfig
-            { BootstrapServers = configure.MessageQueueHost };
-
-        _producer = new ProducerBuilder<Guid, Transaction>(producerConfig)
-            .Build();
+        return ExecuteTransactionAsync(new TransactionMessage()
+        {
+            Id = Guid.NewGuid(),
+            Transaction = transaction,
+        });
     }
 
-    public async Task ExecuteTransactionAsync(Transaction transaction)
+    private async Task ExecuteTransactionAsync(TransactionMessage transactionMessage)
     {
-        var message = new Message<Guid, Transaction>
+        var message = new Message<Guid, TransactionMessage>
         {
-            Key = transaction.Id,
-            Value = transaction,
+            Key = transactionMessage.Transaction.Id,
+            Value = transactionMessage,
         };
 
-        await _producer.ProduceAsync("execute-transaction", message);
+        await _producer.ProduceAsync(Topic, message);
     }
 }

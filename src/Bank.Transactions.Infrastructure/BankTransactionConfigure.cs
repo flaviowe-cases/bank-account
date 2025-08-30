@@ -7,4 +7,5 @@ public class BankTransactionConfigure
     public required string TransactionConnectionString { get; init; }
     public required string TransactionDatabaseName { get; init; }
     public required string MessageQueueHost { get; init; }
+    public required string MessageGroupId { get; init; }
 }

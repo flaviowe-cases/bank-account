@@ -15,21 +15,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionCallback.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionConsumer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/BankTransactionConfigure.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionConsumer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionProducer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionMessage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/TransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/TransactionController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionCallback.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Extensions/ApplicationOpenTelemetryExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/BankTransactionConfigure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/BankTransactionConfigure.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionProducer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionProducer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +109,7 @@
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/AccountBalance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/BankAccount.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/Callback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/TransactionHistory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Services/IAmountService.cs" root0="FORCE_HIGHLIGHTING" />
@@ -131,6 +130,7 @@
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/BankAccountClient.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/BankAccountResponse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionConsumer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionMessage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionProducer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Infrastructure/Repositories/TransactionRepository.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -153,28 +153,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.Bank.Accounts.Api: http.executor": "Debug",
-    ".NET Launch Settings Profile.Bank.Accounts.Api: https.executor": "Run",
-    ".NET Launch Settings Profile.Bank.Transactions.Api: http.executor": "Debug",
-    ".NET Launch Settings Profile.Bank.Transactions.Consumer.executor": "Debug",
-    ".NET Project.Bank.Transactions.Consumer.executor": "Debug",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "f5c8eef8-ae56-450c-8e3c-fdecf29b3e1c.executor": "Debug",
-    "git-widget-placeholder": "worker",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "OpenTelemetry.Configurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.Bank.Accounts.Api: http.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.Bank.Accounts.Api: https.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.Bank.Transactions.Api: http.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.Bank.Transactions.Consumer.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Project.Bank.Transactions.Consumer.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;f5c8eef8-ae56-450c-8e3c-fdecf29b3e1c.executor&quot;: &quot;Debug&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;worker&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;OpenTelemetry.Configurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Bank.Transactions.Consumer">
     <configuration name="Bank.Commons" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -389,7 +389,8 @@
       <workItem from="1755567893712" duration="712000" />
       <workItem from="1755714022825" duration="731000" />
       <workItem from="1755982839063" duration="10271000" />
-      <workItem from="1756001645892" duration="24437000" />
+      <workItem from="1756001645892" duration="31696000" />
+      <workItem from="1756516939805" duration="573000" />
     </task>
     <servers />
   </component>

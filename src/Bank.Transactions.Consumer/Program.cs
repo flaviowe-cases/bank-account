@@ -14,19 +14,22 @@ public static class Program
         var host = CreateHostBuilder(args).Build();
         await host.RunAsync();
     }
-    
+
     private static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .ConfigureServices(ConfigureServices);
 
     private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
+        const string serviceName = "transaction-worker";
+
         var bankAccountBaseAddress = Environment.GetEnvironmentVariable("BANK_ACCOUNT_BASE_ADDRESS");
         var limitAmountTransferVariable = Environment.GetEnvironmentVariable("LIMIT_AMOUNT_TRANSFER");
         var openTelemetryEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT");
         var openTelemetryProtocol = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_PROTOCOL");
         var transactionConnectionString = Environment.GetEnvironmentVariable("TRANSACTION_DB_CONNECTION_STRING");
         var databaseName = Environment.GetEnvironmentVariable("TRANSACTION_DATABASE");
+        var messageQueueHost = Environment.GetEnvironmentVariable("MESSAGE_QUEUE_HOST");
 
         if (!decimal.TryParse(limitAmountTransferVariable, out var limitAmountTransfer))
             throw new ArgumentException(limitAmountTransferVariable);
@@ -45,6 +48,9 @@ public static class Program
 
         if (string.IsNullOrEmpty(databaseName))
             throw new ArgumentNullException(nameof(databaseName));
+        
+        if (string.IsNullOrEmpty(messageQueueHost))
+            throw new ArgumentNullException(nameof(messageQueueHost));
 
         services.AddBankTransactions(new BankTransactionConfigure
         {
@@ -52,12 +58,13 @@ public static class Program
             LimitAmountTransfer = limitAmountTransfer,
             TransactionConnectionString = transactionConnectionString,
             TransactionDatabaseName = databaseName,
-            MessageQueueHost = ""
+            MessageQueueHost = messageQueueHost,
+            MessageGroupId = serviceName
         });
 
-    services.AddBankTransactionsOpenTelemetry(
-            "transaction-worker", 
-            openTelemetryEndpoint, 
+        services.AddBankTransactionsOpenTelemetry(
+            serviceName,
+            openTelemetryEndpoint,
             openTelemetryProtocol);
 
         services.AddHostedService<TransactionSubscriber>();
