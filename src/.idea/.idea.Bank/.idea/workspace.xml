@@ -17,7 +17,15 @@
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Api/Bank.Accounts.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Api/Bank.Accounts.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Application/Bank.Accounts.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Application/Bank.Accounts.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Bank.Accounts.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Bank.Accounts.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Bank.Transactions.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Bank.Transactions.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Bank.Transactions.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Bank.Transactions.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +174,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.Bank.Transactions.Consumer">
+  <component name="RunManager" selected=".NET Launch Settings Profile.Bank.Accounts.Api: http">
     <configuration name="Bank.Commons" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -386,7 +394,8 @@
       <workItem from="1756573321006" duration="950000" />
       <workItem from="1756574292725" duration="188000" />
       <workItem from="1756574501036" duration="897000" />
-      <workItem from="1756575600329" duration="102000" />
+      <workItem from="1756575600329" duration="545000" />
+      <workItem from="1756577638976" duration="818000" />
     </task>
     <servers />
   </component>
