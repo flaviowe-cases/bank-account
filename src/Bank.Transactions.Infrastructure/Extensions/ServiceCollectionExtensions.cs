@@ -89,9 +89,13 @@ public static class ServiceCollectionExtensions
             .AddSingleton(
                 new ConsumerConfig { BootstrapServers = messageQueueHost, GroupId = messageGroupId })
             .AddSingleton(sp => new ProducerBuilder<Guid, TransactionMessage>(
-                sp.GetRequiredService<ProducerConfig>()))
+                sp.GetRequiredService<ProducerConfig>())
+                .Build())
             .AddSingleton(sp => new ConsumerBuilder<Guid, TransactionMessage>(
-                sp.GetRequiredService<ConsumerConfig>()));
+                sp.GetRequiredService<ConsumerConfig>())
+                .Build())
+            .AddSingleton<ITransactionProducer, TransactionProducer>()
+            .AddSingleton<ITransactionConsumer, TransactionConsumer>();
 
 
     private static IServiceCollection AddBankInfrastructureRepositories(

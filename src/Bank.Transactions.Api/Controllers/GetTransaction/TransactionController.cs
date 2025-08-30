@@ -20,12 +20,12 @@ public class TransactionController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAsync(Guid transactionId)
     {
-        var putput = await _getTransactionUseCase.HandleAsync(new()
+        var output = await _getTransactionUseCase.HandleAsync(new()
         {
             TransactionId = transactionId
         });
         
-        return CreateResponse(putput);
+        return CreateResponse(output);
     }
 
     private IActionResult CreateResponse(Result<GetTransactionOutput> output)

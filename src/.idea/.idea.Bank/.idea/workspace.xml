@@ -15,8 +15,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransaction/GetTransactionUseCase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Account.Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Api/Bank.Accounts.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Api/Bank.Accounts.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Application/Bank.Accounts.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Application/Bank.Accounts.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Domain/Bank.Accounts.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Domain/Bank.Accounts.Domain.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Bank.Accounts.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Bank.Accounts.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Bank.Accounts.Unit.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Bank.Accounts.Unit.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Commons.Applications/Bank.Commons.Applications.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Applications/Bank.Commons.Applications.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Integration.Test/Bank.Integration.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Integration.Test/Bank.Integration.Test.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Bank.Transactions.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Bank.Transactions.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransaction/TransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransaction/TransactionController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Bank.Transactions.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Bank.Transactions.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Domain/Bank.Transactions.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Domain/Bank.Transactions.Domain.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Transaction.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Transaction.Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +48,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c9b91f48e04c4e8aafb55c7298ac01056e600/9b/e4f0e811/Consumer`2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1419ed4112a5f67e99e1dec32aef5592bcdecca3da27dba832c32e1b0ca14/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1b445ceb1c5ab1d07b7b55412b10a5e21169ec87228ca8ad8a18a6982f3278/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/23c646a82d4df66af1cb96f366d74b6bf136a4ca66a38de00ceae827db540f3/SwaggerBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -90,6 +109,7 @@
     <setting file="file://$PROJECT_DIR$/Bank.Commons.Api/OpenTelemetry/ApiExporter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/CreateTransactionRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/ExecuteTransaction/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransaction/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionBalance/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionHistory/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/IBankAccountClient.cs" root0="FORCE_HIGHLIGHTING" />
@@ -128,7 +148,7 @@
 }</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="Toolset" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -146,7 +166,7 @@
     &quot;.NET Launch Settings Profile.Bank.Accounts.Api: http.executor&quot;: &quot;Debug&quot;,
     &quot;.NET Launch Settings Profile.Bank.Accounts.Api: https.executor&quot;: &quot;Run&quot;,
     &quot;.NET Launch Settings Profile.Bank.Transactions.Api: http.executor&quot;: &quot;Debug&quot;,
-    &quot;.NET Launch Settings Profile.Bank.Transactions.Consumer.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.Bank.Transactions.Consumer.executor&quot;: &quot;Run&quot;,
     &quot;.NET Project.Bank.Transactions.Consumer.executor&quot;: &quot;Debug&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -159,7 +179,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;OpenTelemetry.Configurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -378,7 +398,11 @@
       <workItem from="1755714022825" duration="731000" />
       <workItem from="1755982839063" duration="10271000" />
       <workItem from="1756001645892" duration="31696000" />
-      <workItem from="1756516939805" duration="1652000" />
+      <workItem from="1756516939805" duration="3758000" />
+      <workItem from="1756569151613" duration="2011000" />
+      <workItem from="1756573321006" duration="950000" />
+      <workItem from="1756574292725" duration="188000" />
+      <workItem from="1756574501036" duration="367000" />
     </task>
     <servers />
   </component>
@@ -459,6 +483,17 @@
     <option featureType="dependencySupport" implementationName="dotnet:Confluent.Kafka" />
     <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore.Relational" />
     <option featureType="dependencySupport" implementationName="dotnet:Microsoft.EntityFrameworkCore" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
