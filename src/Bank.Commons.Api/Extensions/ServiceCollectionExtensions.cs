@@ -17,7 +17,10 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddCommonsApiVersioning(this IServiceCollection services)
     {
         services
-            .AddApiVersioning(options => { options.ReportApiVersions = true; })
+            .AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+            })
             .AddApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";

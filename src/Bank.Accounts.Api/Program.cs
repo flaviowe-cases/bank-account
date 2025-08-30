@@ -9,12 +9,14 @@ public class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        
+        const string serviceName = "account-api";
 
         var bankTransactionBaseAddress = Environment.GetEnvironmentVariable("BANK_TRANSACTION_BASE_ADDRESS");
         var openTelemetryEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT");
         var openTelemetryProtocol = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_PROTOCOL");
         var accountConnectionString = Environment.GetEnvironmentVariable("ACCOUNT_DB_CONNECTION_STRING");
-        
+
         if (string.IsNullOrEmpty(bankTransactionBaseAddress))
             throw new ArgumentNullException(nameof(bankTransactionBaseAddress));
 
@@ -23,7 +25,7 @@ public class Program
 
         if (string.IsNullOrEmpty(openTelemetryProtocol))
             throw new ArgumentNullException(nameof(openTelemetryProtocol));
-        
+
         if (string.IsNullOrEmpty(accountConnectionString))
             throw new ArgumentNullException(nameof(accountConnectionString));
 
@@ -34,17 +36,15 @@ public class Program
         };
 
         builder.AddCommonsOpenTelemetry(
-            "account-api",
+            serviceName,
             openTelemetryEndpoint,
             openTelemetryProtocol);
 
-        builder
-            .Services
-            .AddCommonsApi(apiConfiguration)
-            .AddBankAccounts(
-                bankTransactionBaseAddress, 
-                accountConnectionString)
-            .AddControllers();
+        builder.Services.AddControllers();
+        builder.Services.AddCommonsApi(apiConfiguration);
+        builder.Services.AddBankAccounts(
+            bankTransactionBaseAddress,
+            accountConnectionString);
 
         builder.Services.AddScoped<IAccountStubs, AccountStubs>();
 

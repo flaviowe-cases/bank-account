@@ -19,7 +19,7 @@ public class ExceptionMiddleware(
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Unhandled exception on middleware {Message}",  e.Message);
+            _logger.LogError(e, "Unhandled exception middleware intercept {Message}",  e.Message);
 
             var failures = new List<ResultFail>()
             {

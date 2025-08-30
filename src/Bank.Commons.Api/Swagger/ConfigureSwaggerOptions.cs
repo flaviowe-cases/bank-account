@@ -8,7 +8,7 @@ namespace Bank.Commons.Api.Swagger;
 
 public class ConfigureSwaggerOptions(
     ApiConfiguration apiConfiguration,
-    IApiVersionDescriptionProvider provider) : IConfigureOptions<SwaggerGenOptions> 
+    IApiVersionDescriptionProvider provider) : IConfigureOptions<SwaggerGenOptions>
 {
     private readonly ApiConfiguration _apiConfiguration = apiConfiguration;
     private readonly IApiVersionDescriptionProvider _provider = provider;
@@ -16,9 +16,7 @@ public class ConfigureSwaggerOptions(
     public void Configure(SwaggerGenOptions options)
     {
         foreach (var description in _provider.ApiVersionDescriptions)
-        {
-            options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion( description ));
-        }
+            options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
     }
 
     private OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
@@ -28,8 +26,8 @@ public class ConfigureSwaggerOptions(
             Title = _apiConfiguration.Title,
             Version = description.ApiVersion.ToString(),
             Description = _apiConfiguration.Description,
-            Contact = new OpenApiContact() {Name = "Luis Flavio", Email = "flaviowe@hotmail.com"}, 
-            License = new OpenApiLicense() { Name = "MIT", Url = new Uri( "https://opensource.org/licenses/MIT" ) }
+            Contact = new OpenApiContact() { Name = "Luis Flavio", Email = "flaviowe@hotmail.com" },
+            License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
         };
     }
 }

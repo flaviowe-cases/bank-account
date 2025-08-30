@@ -10,7 +10,7 @@ namespace Bank.Transactions.Api.Controllers.GetTransactionBalance;
 [Route("api/v{version:apiVersion}/[controller]")]
 [Produces("application/json")]
 public class TransactionController(
-    IGetTransactionsBalanceUseCase getTransactionsBalanceUseCase) : ControllerBase
+    IGetTransactionsBalanceUseCase getTransactionsBalanceUseCase) : Controller
 {
     private readonly IGetTransactionsBalanceUseCase _getTransactionsBalanceUseCase = getTransactionsBalanceUseCase;
 

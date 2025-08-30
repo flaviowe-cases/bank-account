@@ -71,8 +71,6 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
-
         app.MapControllers();
 
         await app.RunAsync();
