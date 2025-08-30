@@ -81,6 +81,17 @@ services:
     networks:
       - banknet
 
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    depends_on:
+      - kafka
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+    networks:
+      - banknet
+
 # OTEL Collector to receive logs, metrics and traces from the application
   otel-collector:
     image: otel/opentelemetry-collector:latest

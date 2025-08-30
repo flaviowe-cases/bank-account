@@ -17,24 +17,7 @@
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Account.Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Api/Bank.Accounts.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Api/Bank.Accounts.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Application/Bank.Accounts.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Application/Bank.Accounts.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Domain/Bank.Accounts.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Domain/Bank.Accounts.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Bank.Accounts.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Infrastructure/Bank.Accounts.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Bank.Accounts.Unit.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Accounts.Unit.Test/Bank.Accounts.Unit.Test.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Api/Bank.Commons.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Commons.Applications/Bank.Commons.Applications.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Commons.Applications/Bank.Commons.Applications.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Integration.Test/Bank.Integration.Test.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Integration.Test/Bank.Integration.Test.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Bank.Transactions.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Bank.Transactions.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransaction/TransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransaction/TransactionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Bank.Transactions.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Bank.Transactions.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Bank.Transactions.Consumer.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Domain/Bank.Transactions.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Domain/Bank.Transactions.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Bank.Transactions.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Transaction.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Transaction.Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,28 +144,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.Bank.Accounts.Api: http.executor&quot;: &quot;Debug&quot;,
-    &quot;.NET Launch Settings Profile.Bank.Accounts.Api: https.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Launch Settings Profile.Bank.Transactions.Api: http.executor&quot;: &quot;Debug&quot;,
-    &quot;.NET Launch Settings Profile.Bank.Transactions.Consumer.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.Bank.Transactions.Consumer.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;f5c8eef8-ae56-450c-8e3c-fdecf29b3e1c.executor&quot;: &quot;Debug&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;worker&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.Bank.Accounts.Api: http.executor": "Debug",
+    ".NET Launch Settings Profile.Bank.Accounts.Api: https.executor": "Run",
+    ".NET Launch Settings Profile.Bank.Transactions.Api: http.executor": "Debug",
+    ".NET Launch Settings Profile.Bank.Transactions.Consumer.executor": "Debug",
+    ".NET Project.Bank.Transactions.Consumer.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "f5c8eef8-ae56-450c-8e3c-fdecf29b3e1c.executor": "Debug",
+    "git-widget-placeholder": "worker",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.Bank.Transactions.Consumer">
     <configuration name="Bank.Commons" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -402,7 +385,8 @@
       <workItem from="1756569151613" duration="2011000" />
       <workItem from="1756573321006" duration="950000" />
       <workItem from="1756574292725" duration="188000" />
-      <workItem from="1756574501036" duration="367000" />
+      <workItem from="1756574501036" duration="897000" />
+      <workItem from="1756575600329" duration="102000" />
     </task>
     <servers />
   </component>
