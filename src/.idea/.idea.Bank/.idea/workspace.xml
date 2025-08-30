@@ -15,19 +15,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="512a71e5-9dfc-46f4-a9a1-a3fd07dbbb70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionMessage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Bank/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionCallback.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Consumer/Subscribers/TransactionSubscriber.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/BankTransactionConfigure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/BankTransactionConfigure.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionConsumer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionProducer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Infrastructure/Gateways/TransactionProducer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransaction/GetTransactionUseCase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,17 +93,16 @@
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionBalance/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Api/Controllers/GetTransactionHistory/TransactionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/IBankAccountClient.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionCallback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionConsumer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Gateways/ITransactionProducer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/AccountBalance.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/BankAccount.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/Callback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Models/TransactionHistory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Repositories/ITransactionRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/Services/IAmountService.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/CreateTransaction/CreateTransactionUseCase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/ExecuteTransaction/ExecuteTransactionUseCase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransaction/GetTransactionUseCase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransactionsBalance/GetTransactionsBalanceInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransactionsBalance/GetTransactionsBalanceUseCase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Bank.Transactions.Application/UseCases/GetTransactionsHistory/GetTransactionsHistoryUseCase.cs" root0="FORCE_HIGHLIGHTING" />
@@ -390,7 +378,7 @@
       <workItem from="1755714022825" duration="731000" />
       <workItem from="1755982839063" duration="10271000" />
       <workItem from="1756001645892" duration="31696000" />
-      <workItem from="1756516939805" duration="573000" />
+      <workItem from="1756516939805" duration="1652000" />
     </task>
     <servers />
   </component>

@@ -9,6 +9,13 @@ public class TransactionRepository(IMongoDatabase mongoDatabase) : ITransactionR
     private readonly IMongoCollection<Transaction> _collection = mongoDatabase
         .GetCollection<Transaction>("transactions");
 
+    public async Task<Transaction?> GetAsync(Guid transactionId)
+    {
+        var transactions = _collection
+            .Find(transaction => transaction.Id == transactionId);
+        return await transactions.FirstOrDefaultAsync();
+    }
+
     public async Task AddAsync(Transaction transaction)
     {
         await _collection
