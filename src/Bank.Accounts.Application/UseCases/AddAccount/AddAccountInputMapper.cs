@@ -4,9 +4,9 @@ namespace Bank.Accounts.Application.UseCases.AddAccount;
 
 public class AddAccountInputMapper : IAddAccountInputMapper
 {
-    public Transaction ToDomain(AddAccountInput addAccountInput)
+    public Account ToDomain(AddAccountInput addAccountInput)
     {
-        return new Transaction
+        return new Account()
         {
             Id = Guid.NewGuid(),
             Number = addAccountInput.AccountNumber,

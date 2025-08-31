@@ -1,7 +1,7 @@
 
 # Bank Account Microservices
 
-Este repositório contém uma solução de microsserviços para gerenciamento de contas bancárias e transações, desenvolvida em .NET 8.0. O projeto é composto por duas APIs principais, testes unitários e integrados, além de estar configurado para gerar dados de telemetria.
+Este repositório contém uma solução de microsserviços para gerenciamento de contas bancárias e transações, desenvolvida em .NET 9.0. O projeto é composto por duas APIs principais, um worker, testes unitários e integrados, além de estar configurado para gerar dados de telemetria.
 
 
 ## Como executar o projeto
@@ -11,7 +11,7 @@ Este repositório contém uma solução de microsserviços para gerenciamento de
 Para rodar a aplicação, é necessario executar as duas apis ao mesmo tempo.
 
 ### Para debug
-1. [.NET 8](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0) ou maior
+1. [.NET 9](https://dotnet.microsoft.com/pt-br/download/dotnet/9.0) ou maior
 2. Uma das seguintes IDE
 	- [Visual Studio](https://visualstudio.microsoft.com/pt-br/)
 	- [Visual Studio Code](https://code.visualstudio.com)
@@ -30,8 +30,8 @@ Para rodar a aplicação, é necessario executar as duas apis ao mesmo tempo.
 	docker compose up -d
 	```
 3. Acesse a documentação das APIs:
-	- [Account Api Swagger](http://localhost:5005/swagger)
-	- [Transaction Api Swagger](http://localhost:5006/swagger)
+	- [Account Api Scalar](http://localhost:5005/scalar)
+	- [Transaction Api Scalar](http://localhost:5006/scalar)
 
 
 ### Visual Studio

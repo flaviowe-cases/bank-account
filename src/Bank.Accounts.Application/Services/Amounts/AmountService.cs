@@ -54,12 +54,12 @@ public class AmountService(
             .SelectMany(result => result.GetContent())
             .ToList();  
     }
-
-    public async Task<bool> MakeTransferAsync(Transaction transaction, decimal amount, string comments)
+    
+    public async Task<bool> MakeTransferAsync(Account account, decimal amount, string comments)
     {
         var transfer = new TransferApplication()
         {
-            DestinationAccountNumber = transaction.Number,
+            DestinationAccountNumber = account.Number,
             Amount = amount,
             Comments = comments,
         };
@@ -68,7 +68,7 @@ public class AmountService(
         
         if (!result.Success)
             _logger.LogCritical("Fail to make transfer {Id} {Reason}",
-                transaction.Id, result.Failures?.FirstOrDefault()?.Message);
+                account.Id, result.Failures?.FirstOrDefault()?.Message);
         
         return result.Success;
     }

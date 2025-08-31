@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
 using Bank.Accounts.Api;
 using Bank.Integration.Test.Factories;
-using Bank.Transactions.Api.Controllers.ExecuteTransaction;
+using Bank.Transactions.Api.Controllers.AddTransaction;
 using FluentAssertions;
 
 namespace Bank.Integration.Test.Api.Transaction;
@@ -29,7 +29,7 @@ public class TransactionTests :
     {
         var httpClient = _transactionApiFactory.CreateClient();
 
-        var request = new ExecuteTransactionRequest()
+        var request = new AddTransactionRequest()
         {
             DestinationAccountNumber = 10002,
             Amount = 15000,

@@ -4,31 +4,38 @@ using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Repositories;
 using Bank.Transactions.Application.Services;
+using Bank.Transactions.Application.UseCases.CreateTransaction;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
+using Bank.Transactions.Application.UseCases.GetTransaction;
 using Bank.Transactions.Application.UseCases.GetTransactionsBalance;
 using Bank.Transactions.Application.UseCases.GetTransactionsHistory;
 using Bank.Transactions.Domain.Entities;
-using Bank.Transactions.Infrastructure.Gateways;
+using Bank.Transactions.Infrastructure.Gateways.AccountApi;
+using Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 using Bank.Transactions.Infrastructure.Repositories;
+using Confluent.Kafka;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
+using MongoDB.Driver.Core.Extensions.DiagnosticSources;
 
 namespace Bank.Transactions.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddBankTransactions(
-        this IServiceCollection services, string bankAccountBaseAddress, decimal limitAmountTransfer)
+        this IServiceCollection services,
+        BankTransactionConfigure configuration)
         => services
-            .AddBankApplication(limitAmountTransfer)
-            .AddBankInfrastructure(bankAccountBaseAddress)
+            .AddBankApplication(configuration)
+            .AddBankInfrastructure(configuration)
             .AddCommons();
 
     private static IServiceCollection AddBankApplication(
-        this IServiceCollection services, decimal limitAmountTransfer)
+        this IServiceCollection services, BankTransactionConfigure configuration)
         => services
-            .AddSingleton(new TransferParameters() { LimitAmountTransfer = limitAmountTransfer })
+            .AddSingleton(new TransferParameters()
+                { LimitAmountTransfer = configuration.LimitAmountTransfer })
             .AddSingleton(new ConcurrentDictionary<Guid, SemaphoreSlim>())
             .AddBankApplicationUseCases()
             .AddBankApplicationServices()
@@ -36,11 +43,14 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddBankInfrastructure(
         this IServiceCollection services,
-        string bankAccountBaseAddress)
+        BankTransactionConfigure configuration)
         => services
-            .AddBankInfrastructureGateways(bankAccountBaseAddress)
-            .AddBankInfrastructureRepositories();
-    
+            .AddBankInfrastructureGateways(configuration.BankAccountBaseAddress)
+            .AddBankInfrastructureKafka(configuration.MessageQueueHost, configuration.MessageGroupId)
+            .AddBankInfrastructureRepositories(
+                configuration.TransactionConnectionString,
+                configuration.TransactionDatabaseName);
+
     private static IServiceCollection AddCommons(
         this IServiceCollection services)
         => services
@@ -49,9 +59,12 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddBankApplicationUseCases(this IServiceCollection services)
         => services
+            .AddScoped<IGetTransactionUseCase, GetTransactionUseCase>()
             .AddScoped<IExecuteTransactionUseCase, ExecuteTransactionUseCase>()
             .AddScoped<IGetTransactionsBalanceUseCase, GetTransactionsBalanceUseCase>()
-            .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>();
+            .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>()
+            .AddScoped<ICreateTransactionUseCase, CreateTransactionUseCase>()
+            .AddSingleton<ICreateTransactionInputMapper, CreateTransactionInputMapper>();
 
     private static IServiceCollection AddBankApplicationServices(this IServiceCollection services)
         => services
@@ -74,11 +87,52 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddBankInfrastructureRepositories(this IServiceCollection services)
+    private static IServiceCollection AddBankInfrastructureKafka(
+        this IServiceCollection services, string messageQueueHost, string messageGroupId)
         => services
-            .AddEntityFrameworkInMemoryDatabase()
-            .AddDbContext<TransactionContext>((sp, options) => options
-                .UseInMemoryDatabase("transaction")
-                .UseApplicationServiceProvider(sp))
-            .AddScoped<ITransactionRepository, TransactionRepository>();
+            .AddSingleton(new TopicNames())
+            .AddSingleton(new AdminClientConfig() {BootstrapServers = messageQueueHost})
+            .AddSingleton(
+                new ProducerConfig { BootstrapServers = messageQueueHost })
+            .AddSingleton(
+                new ConsumerConfig
+                {
+                    BootstrapServers = messageQueueHost,
+                    GroupId = messageGroupId
+                })
+            .AddSingleton(sp => new AdminClientBuilder(
+                sp.GetRequiredService<AdminClientConfig>())
+                .Build())
+            .AddSingleton(sp => new ProducerBuilder<string, string>(
+                sp.GetRequiredService<ProducerConfig>())
+                .Build())
+            .AddSingleton(sp => new ConsumerBuilder<string, string>(
+                sp.GetRequiredService<ConsumerConfig>())
+                .Build())
+            .AddSingleton<ITopicCreators, TopicCreators>()
+            .AddSingleton<ITransactionProducer, TransactionProducer>()
+            .AddSingleton<ITransactionConsumer, TransactionConsumer>();
+        
+
+
+    private static IServiceCollection AddBankInfrastructureRepositories(
+        this IServiceCollection services,
+        string connectionString,
+        string databaseName)
+        => services
+            .AddSingleton<IMongoClient>(
+                CreateMongoClient(connectionString))
+            .AddSingleton<IMongoDatabase>(sp => sp.GetRequiredService<IMongoClient>()
+                .MappingEntities()
+                .GetDatabase(databaseName))
+            .AddSingleton<ITransactionRepository, TransactionRepository>();
+
+    private static MongoClient CreateMongoClient(string connectionString)
+    {
+        var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
+        var options = new InstrumentationOptions { CaptureCommandText = true };
+        clientSettings.ClusterConfigurator = cb =>
+            cb.Subscribe(new DiagnosticsActivityEventSubscriber(options));
+        return new MongoClient(clientSettings);
+    }
 }

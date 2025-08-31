@@ -19,10 +19,13 @@ public static class ServiceCollectionsExtensions
 {
     public static IServiceCollection AddBankAccounts(
         this IServiceCollection services,
-        string bankTransactionBaseAddress)
+        string bankTransactionBaseAddress,
+        string accountConnectionString)
         => services
             .AddApplication()
-            .AddInfrastructure(bankTransactionBaseAddress)
+            .AddInfrastructure(
+                bankTransactionBaseAddress,
+                accountConnectionString)
             .AddCommons();
 
     private static IServiceCollection AddApplication(this IServiceCollection services)
@@ -33,10 +36,12 @@ public static class ServiceCollectionsExtensions
             .AddApplicationValidator();
 
     private static IServiceCollection AddInfrastructure(
-        this IServiceCollection services, string bankTransactionBaseAddress)
+        this IServiceCollection services, 
+        string bankTransactionBaseAddress,
+        string accountConnectionString)
         => services
             .AddInfrastructureGateways(bankTransactionBaseAddress)   
-            .AddInfrastructureRepositories();
+            .AddInfrastructureRepositoriesPostgres(accountConnectionString);
 
     private static IServiceCollection AddCommons(
         this IServiceCollection services)
@@ -75,11 +80,14 @@ public static class ServiceCollectionsExtensions
         return services;
     }
 
-    private static IServiceCollection AddInfrastructureRepositories(this IServiceCollection services)
+    private static IServiceCollection AddInfrastructureRepositoriesPostgres(
+        this IServiceCollection services,
+        string connectionString)
         => services
-            .AddEntityFrameworkInMemoryDatabase()
-            .AddDbContext<AccountContext>((sp, options) => options
-                .UseInMemoryDatabase("account")
-                .UseInternalServiceProvider(sp))
+            .AddEntityFrameworkNpgsql()
+            .AddDbContext<AccountContext>((sp, options) 
+                => options
+                    .UseNpgsql(connectionString)
+                    .UseInternalServiceProvider(sp))
             .AddScoped<IAccountRepository, AccountRepository>();
 }

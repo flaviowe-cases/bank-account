@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using Bank.Accounts.Application.UseCases.AddAccount;
 using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Api.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.Accounts.Api.Controllers.AddAccount;
@@ -42,8 +43,7 @@ public class AccountController(
         if (output.Success)
         {
             var content = output.GetContent();
-            var uri = $"/api/v1/Account/{content.AccountId}";
-            return Created(uri, content);
+            return this.Created(content.AccountId, content);
         }
 
         if (output.ContainsFailure("INVALID_FIELDS"))
