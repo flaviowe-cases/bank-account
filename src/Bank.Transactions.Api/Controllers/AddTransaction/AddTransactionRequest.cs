@@ -1,4 +1,4 @@
-namespace Bank.Transactions.Api.Controllers.ExecuteTransaction;
+namespace Bank.Transactions.Api.Controllers.AddTransaction;
 
 public class AddTransactionRequest
 {

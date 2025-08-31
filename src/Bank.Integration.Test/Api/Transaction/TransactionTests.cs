@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
 using Bank.Accounts.Api;
 using Bank.Integration.Test.Factories;
-using Bank.Transactions.Api.Controllers.ExecuteTransaction;
+using Bank.Transactions.Api.Controllers.AddTransaction;
 using FluentAssertions;
 
 namespace Bank.Integration.Test.Api.Transaction;

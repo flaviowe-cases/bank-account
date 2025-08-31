@@ -1,10 +1,10 @@
 using Asp.Versioning;
-using Bank.Commons.Applications.Factories.Results;
 using Bank.Commons.Api.Extensions;
+using Bank.Commons.Applications.Factories.Results;
 using Bank.Transactions.Application.UseCases.CreateTransaction;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bank.Transactions.Api.Controllers.ExecuteTransaction;
+namespace Bank.Transactions.Api.Controllers.AddTransaction;
 
 [ApiController]
 [ApiVersion("1.0")]
