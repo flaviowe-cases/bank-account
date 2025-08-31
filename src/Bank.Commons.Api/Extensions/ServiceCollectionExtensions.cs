@@ -1,7 +1,4 @@
-using Bank.Commons.Api.Swagger;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Bank.Commons.Api.Extensions;
 
@@ -10,8 +7,10 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCommonsApi(this IServiceCollection services, ApiConfiguration apiConfiguration)
         => services
             .AddSingleton(apiConfiguration)
-            .AddSwaggerGen()
-            .AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>()
+            .AddOpenApi(options =>
+            {
+                options.AddDocumentTransformer<OpenApiDocumentTransformer>();
+            })
             .AddCommonsApiVersioning();
 
     private static IServiceCollection AddCommonsApiVersioning(this IServiceCollection services)
