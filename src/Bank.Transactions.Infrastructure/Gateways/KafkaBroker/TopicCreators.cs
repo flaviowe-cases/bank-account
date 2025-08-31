@@ -19,6 +19,7 @@ public class TopicCreators(
         try
         {
             await _adminClient.CreateTopicsAsync(topicSpecifications);
+            _logger.LogInformation("All topics created");
         }
         catch (CreateTopicsException e)
         {
