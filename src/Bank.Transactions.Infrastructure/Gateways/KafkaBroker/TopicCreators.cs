@@ -26,6 +26,10 @@ public class TopicCreators(
             {
                 switch (result.Error.Code)
                 {
+                    case ErrorCode.NoError:
+                        _logger.LogInformation("Topic created {TopicName}", result.Topic);
+                        break;
+                    
                     case ErrorCode.TopicAlreadyExists:
                         _logger.LogInformation("Topic already exists, skipping creation topic: {TopicName}",
                             result.Topic);
