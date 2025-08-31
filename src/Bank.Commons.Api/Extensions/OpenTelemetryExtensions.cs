@@ -20,7 +20,7 @@ public static class OpenTelemetryExtensions
         string serviceName,
         string endpoint,
         string protocol,
-        string? messageQueueHost = null)
+        bool useKafkaInstrumentation = false)
     {
         Action<OtlpExporterOptions> configureExporter = (options) =>
         {
@@ -30,8 +30,8 @@ public static class OpenTelemetryExtensions
 
         appBuilder.Logging.ClearProviders();
 
-        if (!string.IsNullOrWhiteSpace(messageQueueHost))
-            appBuilder.Services.AddKafkaBuilders(serviceName, messageQueueHost);
+        if (useKafkaInstrumentation)
+            appBuilder.Services.AddKafkaBuilders();
 
         appBuilder.Services
             .AddOpenTelemetry()
@@ -47,7 +47,7 @@ public static class OpenTelemetryExtensions
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(configureExporter);
 
-                if (!string.IsNullOrWhiteSpace(messageQueueHost))
+                if (useKafkaInstrumentation)
                     builder
                         .AddKafkaProducerInstrumentation<string, string>()
                         .AddKafkaConsumerInstrumentation<string, string>();
@@ -60,7 +60,7 @@ public static class OpenTelemetryExtensions
                     .AddAspNetCoreInstrumentation()
                     .AddOtlpExporter(configureExporter);
                 
-                if (!string.IsNullOrWhiteSpace(messageQueueHost))
+                if (useKafkaInstrumentation)
                     builder
                         .AddKafkaProducerInstrumentation<string, string>()
                         .AddKafkaConsumerInstrumentation<string, string>();
@@ -76,32 +76,20 @@ public static class OpenTelemetryExtensions
     private static OtlpExportProtocol GetOpenTelemetryProtocol(string protocol) =>
         protocol.ToLower() switch
         {
-            "http" => OtlpExportProtocol.HttpProtobuf,
-            "http/protobuf" => OtlpExportProtocol.HttpProtobuf,
+            "http" or "http/protobuf" => OtlpExportProtocol.HttpProtobuf,
             _ => OtlpExportProtocol.Grpc
         };
 
     private static void AddKafkaBuilders(
-        this IServiceCollection services,
-        string serviceName,
-        string messageQueueHost)
+        this IServiceCollection services)
     {
-        var producerConfig = new ProducerConfig()
-        {
-            BootstrapServers = messageQueueHost,
-        };
-
-        var consumerConfig = new ConsumerConfig()
-        {
-            BootstrapServers = messageQueueHost,
-            GroupId = serviceName,
-            AutoOffsetReset = AutoOffsetReset.Earliest,
-            EnablePartitionEof = true,
-        };
-
         services
-            .AddSingleton(new InstrumentedProducerBuilder<string, string>(producerConfig))
-            .AddSingleton(new InstrumentedConsumerBuilder<string, string>(consumerConfig));
+            .AddSingleton(sp =>
+                new InstrumentedProducerBuilder<string, string>(
+                    sp.GetRequiredService<ProducerConfig>()))
+            .AddSingleton(sp => 
+                new InstrumentedConsumerBuilder<string, string>(
+                    sp.GetRequiredService<ConsumerConfig>()));
     }
 
     private static LoggerProviderBuilder AddApiExporter(this LoggerProviderBuilder builder)

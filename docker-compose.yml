@@ -36,7 +36,11 @@ services:
     networks:
       - banknet
     depends_on:
-      - transaction-db
+      transaction-db:
+        condition: service_started
+      kafka: 
+        condition: service_healthy
+
 
   transactions-consumer:
     build:
@@ -54,8 +58,10 @@ services:
     networks:
       - banknet
     depends_on:
-      - transaction-db
-      - kafka
+      transaction-db:
+        condition: service_started
+      kafka: 
+        condition: service_healthy
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -84,6 +90,12 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CREATE_TOPICS: execute-transaction:1:1
       KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+    healthcheck:
+      test: ["CMD-SHELL", "cub kafka-ready -b kafka:9092 1 30"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
     networks:
       - banknet
 

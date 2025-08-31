@@ -15,10 +15,28 @@ public class TopicCreators(
 
     public async Task CreateTopicsAsync()
     {
-        var topicSpecifications = GetTopics(); 
+        var topicSpecifications = GetTopics();
         try
         {
             await _adminClient.CreateTopicsAsync(topicSpecifications);
+        }
+        catch (CreateTopicsException e)
+        {
+            foreach (var result in e.Results)
+            {
+                switch (result.Error.Code)
+                {
+                    case ErrorCode.TopicAlreadyExists:
+                        _logger.LogInformation("Topic already exists, skipping creation topic: {TopicName}",
+                            result.Topic);
+                        break;
+                    
+                    default:
+                        _logger.LogError("Error creating topic {Reason} {TopicName}",
+                            result.Error.Reason, result.Topic);
+                        break;
+                }
+            }
         }
         catch (Exception e)
         {

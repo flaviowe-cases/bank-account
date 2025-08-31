@@ -1,7 +1,5 @@
-using Bank.Transactions.Consumer.OpenTelemetry;
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
-using OpenTelemetry;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -16,8 +14,7 @@ public static class ApplicationOpenTelemetryExtensions
         this IServiceCollection services,
         string serviceName,
         string endpoint,
-        string protocol,
-        string messageQueueHost)
+        string protocol)
     {
         Action<OtlpExporterOptions> configureExporter = (options) =>
         {
@@ -27,7 +24,7 @@ public static class ApplicationOpenTelemetryExtensions
 
         services
             .AddLogging()
-            .AddKafkaBuilders(serviceName, messageQueueHost)
+            .AddKafkaBuilders()
             .AddOpenTelemetry()
             .ConfigureResource(builder
                 => builder.AddService(serviceName: serviceName))
@@ -61,33 +58,16 @@ public static class ApplicationOpenTelemetryExtensions
         };
 
     private static IServiceCollection AddKafkaBuilders(
-        this IServiceCollection services,
-        string serviceName,
-        string messageQueueHost)
+        this IServiceCollection services)
     {
-        var producerConfig = new ProducerConfig()
-        {
-            BootstrapServers = messageQueueHost,
-        };
-
-        var consumerConfig = new ConsumerConfig()
-        {
-            BootstrapServers = messageQueueHost,
-            GroupId = serviceName,
-            AutoOffsetReset = AutoOffsetReset.Earliest,
-            EnablePartitionEof = true,
-        };
-
         services
-            .AddSingleton(new InstrumentedProducerBuilder<string, string>(producerConfig))
-            .AddSingleton(new InstrumentedConsumerBuilder<string, string>(consumerConfig));
+            .AddSingleton(sp =>
+                new InstrumentedProducerBuilder<string, string>(
+                    sp.GetRequiredService<ProducerConfig>()))
+            .AddSingleton(sp => 
+                new InstrumentedConsumerBuilder<string, string>(
+                    sp.GetRequiredService<ConsumerConfig>()));
 
         return services;
     }
-
-    private static LoggerProviderBuilder AddApplicationExporter(this LoggerProviderBuilder builder)
-        => builder
-            .AddProcessor(
-                new SimpleLogRecordExportProcessor(
-                    new AplicationExporter()));
 }

@@ -12,7 +12,7 @@ Para rodar a aplicação, é necessario executar as duas apis ao mesmo tempo.
 
 ### Para debug
 1. [.NET 9](https://dotnet.microsoft.com/pt-br/download/dotnet/9.0) ou maior
-2. Uma das seguintes IDEgit 
+2. Uma das seguintes IDE
 	- [Visual Studio](https://visualstudio.microsoft.com/pt-br/)
 	- [Visual Studio Code](https://code.visualstudio.com)
 	- [Rider JetBrains](https://www.jetbrains.com/rider/)

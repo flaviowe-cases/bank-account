@@ -52,7 +52,7 @@ public class Program
             serviceName,
             openTelemetryEndpoint, 
             openTelemetryProtocol,
-            messageQueueHost);
+            useKafkaInstrumentation: true);
 
         builder.Services.AddControllers();
         builder.Services.AddCommonsApi(apiConfiguration);

@@ -15,7 +15,6 @@ using Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 using Bank.Transactions.Infrastructure.Repositories;
 using Confluent.Kafka;
 using FluentValidation;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Extensions.DiagnosticSources;

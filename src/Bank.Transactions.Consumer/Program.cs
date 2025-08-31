@@ -66,8 +66,7 @@ public static class Program
         services.AddBankTransactionsOpenTelemetry(
             serviceName,
             openTelemetryEndpoint,
-            openTelemetryProtocol,
-            messageQueueHost);
+            openTelemetryProtocol);
 
         services.AddHostedService<TransactionSubscriber>();
     }
