@@ -20,7 +20,7 @@ public class TransactionController(
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PostAsync([FromBody] ExecuteTransactionRequest request)
+    public async Task<IActionResult> PostAsync([FromBody] AddTransactionRequest request)
     {
         var input = new CreateTransactionInput()
         {

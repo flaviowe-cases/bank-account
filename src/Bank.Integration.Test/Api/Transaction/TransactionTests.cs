@@ -29,7 +29,7 @@ public class TransactionTests :
     {
         var httpClient = _transactionApiFactory.CreateClient();
 
-        var request = new ExecuteTransactionRequest()
+        var request = new AddTransactionRequest()
         {
             DestinationAccountNumber = 10002,
             Amount = 15000,

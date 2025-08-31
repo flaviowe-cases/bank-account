@@ -1,6 +1,6 @@
 namespace Bank.Transactions.Api.Controllers.ExecuteTransaction;
 
-public class ExecuteTransactionRequest
+public class AddTransactionRequest
 {
     public int? SourceAccountNumber { get; init; }
     public int? DestinationAccountNumber { get; init; }
