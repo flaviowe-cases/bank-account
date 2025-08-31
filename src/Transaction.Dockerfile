@@ -9,7 +9,7 @@ RUN dotnet restore
 RUN dotnet publish ./Bank.Transactions.Api  -o out 
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:9clear.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /App
 COPY --from=build /App/out .
 ENTRYPOINT ["dotnet", "Bank.Transactions.Api.dll"]

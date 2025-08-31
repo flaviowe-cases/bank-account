@@ -1,3 +1,4 @@
+using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Domain.Entities;
 using Confluent.Kafka;
@@ -5,11 +6,13 @@ using Confluent.Kafka;
 namespace Bank.Transactions.Infrastructure.Gateways;
 
 public class TransactionProducer(
-    IProducer<Guid, TransactionMessage> producer) : ITransactionProducer
+    IJsonSerializer jsonSerializer,
+    IProducer<string, string> producer) : ITransactionProducer
 {
     private const string Topic = "execute-transaction";
 
-    private readonly IProducer<Guid, TransactionMessage> _producer = producer;
+    private readonly IJsonSerializer _jsonSerializer = jsonSerializer;
+    private readonly IProducer<string, string> _producer = producer;
 
     public Task ExecuteTransactionAsync(Transaction transaction)
     {
@@ -22,10 +25,12 @@ public class TransactionProducer(
 
     private async Task ExecuteTransactionAsync(TransactionMessage transactionMessage)
     {
-        var message = new Message<Guid, TransactionMessage>
+        var key = transactionMessage.Transaction.Id.ToString();
+        var value = _jsonSerializer.Serialize(transactionMessage);
+        var message = new Message<string, string>
         {
-            Key = transactionMessage.Transaction.Id,
-            Value = transactionMessage,
+            Key = key,
+            Value = value,
         };
 
         await _producer.ProduceAsync(Topic, message);

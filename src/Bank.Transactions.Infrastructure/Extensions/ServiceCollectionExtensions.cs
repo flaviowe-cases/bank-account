@@ -4,6 +4,7 @@ using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Repositories;
 using Bank.Transactions.Application.Services;
+using Bank.Transactions.Application.UseCases.CreateTransaction;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
 using Bank.Transactions.Application.UseCases.GetTransactionsBalance;
 using Bank.Transactions.Application.UseCases.GetTransactionsHistory;
@@ -58,7 +59,9 @@ public static class ServiceCollectionExtensions
         => services
             .AddScoped<IExecuteTransactionUseCase, ExecuteTransactionUseCase>()
             .AddScoped<IGetTransactionsBalanceUseCase, GetTransactionsBalanceUseCase>()
-            .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>();
+            .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>()
+            .AddScoped<ICreateTransactionUseCase, CreateTransactionUseCase>()
+            .AddSingleton<ICreateTransactionInputMapper, CreateTransactionInputMapper>();
 
     private static IServiceCollection AddBankApplicationServices(this IServiceCollection services)
         => services
@@ -87,15 +90,20 @@ public static class ServiceCollectionExtensions
             .AddSingleton(
                 new ProducerConfig { BootstrapServers = messageQueueHost })
             .AddSingleton(
-                new ConsumerConfig { BootstrapServers = messageQueueHost, GroupId = messageGroupId })
-            .AddSingleton(sp => new ProducerBuilder<Guid, TransactionMessage>(
+                new ConsumerConfig
+                {
+                    BootstrapServers = messageQueueHost,
+                    GroupId = messageGroupId
+                })
+            .AddSingleton(sp => new ProducerBuilder<string, string>(
                 sp.GetRequiredService<ProducerConfig>())
                 .Build())
-            .AddSingleton(sp => new ConsumerBuilder<Guid, TransactionMessage>(
+            .AddSingleton(sp => new ConsumerBuilder<string, string>(
                 sp.GetRequiredService<ConsumerConfig>())
                 .Build())
             .AddSingleton<ITransactionProducer, TransactionProducer>()
             .AddSingleton<ITransactionConsumer, TransactionConsumer>();
+        
 
 
     private static IServiceCollection AddBankInfrastructureRepositories(

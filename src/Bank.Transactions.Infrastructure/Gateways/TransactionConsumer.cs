@@ -1,4 +1,5 @@
 using System.Data;
+using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Models;
 using Bank.Transactions.Domain.Entities;
@@ -9,18 +10,20 @@ namespace Bank.Transactions.Infrastructure.Gateways;
 
 public class TransactionConsumer(
     ILogger<TransactionConsumer> logger,
-    IConsumer<Guid, TransactionMessage> consumer) : ITransactionConsumer
+    IJsonSerializer jsonSerializer,
+    IConsumer<string, string> consumer) : ITransactionConsumer
 {
     private const string Topic = "execute-transaction";
     public Func<Transaction, Task>? OnReceiveAsync { get; set; }
     private readonly ILogger<TransactionConsumer> _logger = logger;
-    private readonly IConsumer<Guid, TransactionMessage> _consumer = consumer;
-    
+    private readonly IJsonSerializer _jsonSerializer = jsonSerializer;
+    private readonly IConsumer<string, string> _consumer = consumer;
+
     public async Task SubscribeAsync(CancellationToken cancellationToken)
     {
         if (OnReceiveAsync == null)
             throw new NoNullAllowedException("OnReceiveAsync is not set");
-        
+
         _consumer.Subscribe(Topic);
 
         while (!cancellationToken.IsCancellationRequested)
@@ -28,9 +31,12 @@ public class TransactionConsumer(
             try
             {
                 var result = _consumer.Consume(cancellationToken);
-                var transactionMessage = result.Message;
-                var transaction = transactionMessage.Value.Transaction;
-                await OnReceiveAsync(transaction);
+                var message = result.Message;
+                var json = message.Value;
+                var transactionMessage = _jsonSerializer.Deserialize<TransactionMessage>(json);
+                
+                if (transactionMessage is not null)
+                    await OnReceiveAsync(transactionMessage.Transaction);
             }
             catch (Exception e)
             {
