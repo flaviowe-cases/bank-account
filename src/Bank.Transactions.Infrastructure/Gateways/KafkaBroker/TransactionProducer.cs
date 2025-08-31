@@ -2,15 +2,18 @@ using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Domain.Entities;
 using Confluent.Kafka;
+using Microsoft.Extensions.Logging;
 
 namespace Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 
 public class TransactionProducer(
+    ILogger<TransactionProducer>  logger,
+    TopicNames topicNames,
     IJsonSerializer jsonSerializer,
     IProducer<string, string> producer) : ITransactionProducer
 {
-    private const string Topic = "execute-transaction";
-
+    private readonly ILogger<TransactionProducer> _logger = logger;
+    private readonly TopicNames _topicNames = topicNames;
     private readonly IJsonSerializer _jsonSerializer = jsonSerializer;
     private readonly IProducer<string, string> _producer = producer;
 
@@ -33,6 +36,6 @@ public class TransactionProducer(
             Value = value,
         };
 
-        await _producer.ProduceAsync(Topic, message);
+        await _producer.ProduceAsync(_topicNames.ExecuteTransaction, message);
     }
 }

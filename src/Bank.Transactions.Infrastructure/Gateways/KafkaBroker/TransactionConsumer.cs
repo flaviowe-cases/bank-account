@@ -24,7 +24,7 @@ public class TransactionConsumer(
         if (OnReceiveAsync == null)
             throw new NoNullAllowedException("OnReceiveAsync is not set");
 
-        _consumer.Subscribe(TopicNames.ExecuteTransaction);
+        _consumer.Subscribe(_topicNames.ExecuteTransaction);
 
         while (!cancellationToken.IsCancellationRequested)
         {

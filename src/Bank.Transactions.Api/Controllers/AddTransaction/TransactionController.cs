@@ -41,7 +41,7 @@ public class TransactionController(
         if (output.Success)
         {
             var content = output.GetContent();
-            return this.Created(content.TransactionId, output);
+            return this.Created(content.TransactionId, content);
         }
         
         if (output.ContainsFailure("INVALID_FIELDS"))
