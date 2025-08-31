@@ -15,7 +15,7 @@ public class TransactionController(
     private readonly IGetTransactionUseCase _getTransactionUseCase = getTransactionUseCase;
 
     [HttpGet("{transactionId:guid}")]
-    [EndpointDescription("Creates a new transaction")]
+    [EndpointDescription("Get transaction by id")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

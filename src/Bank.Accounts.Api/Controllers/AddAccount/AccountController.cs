@@ -43,7 +43,7 @@ public class AccountController(
         if (output.Success)
         {
             var content = output.GetContent();
-            return this.Created(content.AccountId, output);
+            return this.Created(content.AccountId, content);
         }
 
         if (output.ContainsFailure("INVALID_FIELDS"))
