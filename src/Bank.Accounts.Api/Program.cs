@@ -1,4 +1,5 @@
 using Bank.Accounts.Infrastructure.Extensions;
+using Bank.Accounts.Infrastructure.Stubs;
 using Bank.Commons.Api;
 using Bank.Commons.Api.Extensions;
 
@@ -49,15 +50,12 @@ public class Program
         builder.Services.AddScoped<IAccountStubs, AccountStubs>();
 
         var app = builder.Build();
-
+        await app.Services.ConfigureBankAccountAsync();
+        
         app.UseCommonsApi();
         app.UseHttpsRedirection();
         app.MapControllers();
-
-        using (var scope = app.Services.CreateScope())
-            await scope.ServiceProvider.GetRequiredService<IAccountStubs>()
-                .AddAccountsAsync();
-
+        
         await app.RunAsync();
     }
 }

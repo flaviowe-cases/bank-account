@@ -1,4 +1,4 @@
-namespace Bank.Accounts.Api;
+namespace Bank.Accounts.Infrastructure.Stubs;
 
 public interface IAccountStubs
 {

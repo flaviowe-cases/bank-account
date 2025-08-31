@@ -1,7 +1,7 @@
 using Bank.Accounts.Application.Repositories;
 using Bank.Accounts.Domain.Entities;
 
-namespace Bank.Accounts.Api;
+namespace Bank.Accounts.Infrastructure.Stubs;
 
 public class AccountStubs(
     IAccountRepository accountRepository) : IAccountStubs

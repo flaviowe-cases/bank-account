@@ -9,12 +9,13 @@ namespace Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 
 public class TransactionConsumer(
     ILogger<TransactionConsumer> logger,
+    TopicNames topicNames,
     IJsonSerializer jsonSerializer,
     IConsumer<string, string> consumer) : ITransactionConsumer
 {
-    private const string Topic = "execute-transaction";
     public Func<Transaction, Task>? OnReceiveAsync { get; set; }
     private readonly ILogger<TransactionConsumer> _logger = logger;
+    private readonly TopicNames _topicNames = topicNames;
     private readonly IJsonSerializer _jsonSerializer = jsonSerializer;
     private readonly IConsumer<string, string> _consumer = consumer;
 
@@ -23,7 +24,7 @@ public class TransactionConsumer(
         if (OnReceiveAsync == null)
             throw new NoNullAllowedException("OnReceiveAsync is not set");
 
-        _consumer.Subscribe(Topic);
+        _consumer.Subscribe(TopicNames.ExecuteTransaction);
 
         while (!cancellationToken.IsCancellationRequested)
         {

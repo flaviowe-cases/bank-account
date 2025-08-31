@@ -67,7 +67,8 @@ public class Program
         });
 
         var app = builder.Build();
-
+        await app.Services.ConfigureBankTransactionsAsync();
+        
         app.UseCommonsApi();
         app.UseHttpsRedirection();
         app.MapControllers();

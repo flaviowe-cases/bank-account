@@ -10,12 +10,12 @@ using Bank.Transactions.Application.UseCases.GetTransaction;
 using Bank.Transactions.Application.UseCases.GetTransactionsBalance;
 using Bank.Transactions.Application.UseCases.GetTransactionsHistory;
 using Bank.Transactions.Domain.Entities;
-using Bank.Transactions.Infrastructure.Gateways;
 using Bank.Transactions.Infrastructure.Gateways.AccountApi;
 using Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 using Bank.Transactions.Infrastructure.Repositories;
 using Confluent.Kafka;
 using FluentValidation;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Extensions.DiagnosticSources;
@@ -91,6 +91,8 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddBankInfrastructureKafka(
         this IServiceCollection services, string messageQueueHost, string messageGroupId)
         => services
+            .AddSingleton(new TopicNames())
+            .AddSingleton(new AdminClientConfig() {BootstrapServers = messageQueueHost})
             .AddSingleton(
                 new ProducerConfig { BootstrapServers = messageQueueHost })
             .AddSingleton(
@@ -99,12 +101,16 @@ public static class ServiceCollectionExtensions
                     BootstrapServers = messageQueueHost,
                     GroupId = messageGroupId
                 })
+            .AddSingleton(sp => new AdminClientBuilder(
+                sp.GetRequiredService<AdminClientConfig>())
+                .Build())
             .AddSingleton(sp => new ProducerBuilder<string, string>(
                 sp.GetRequiredService<ProducerConfig>())
                 .Build())
             .AddSingleton(sp => new ConsumerBuilder<string, string>(
                 sp.GetRequiredService<ConsumerConfig>())
                 .Build())
+            .AddSingleton<ITopicCreators, TopicCreators>()
             .AddSingleton<ITransactionProducer, TransactionProducer>()
             .AddSingleton<ITransactionConsumer, TransactionConsumer>();
         

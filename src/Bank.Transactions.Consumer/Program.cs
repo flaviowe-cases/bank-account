@@ -12,6 +12,7 @@ public static class Program
     public static async Task Main(string[] args)
     {
         var host = CreateHostBuilder(args).Build();
+        await host.Services.ConfigureBankTransactionsAsync();
         await host.RunAsync();
     }
 
