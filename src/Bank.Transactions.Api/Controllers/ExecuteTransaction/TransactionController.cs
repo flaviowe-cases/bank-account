@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Bank.Commons.Applications.Factories.Results;
+using Bank.Commons.Api.Extensions;
 using Bank.Transactions.Application.UseCases.CreateTransaction;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,27 +36,26 @@ public class TransactionController(
         return CreateResponse(result);
     }
 
-    private IActionResult CreateResponse(Result<CreateTransactionOutput> result)
+    private IActionResult CreateResponse(Result<CreateTransactionOutput> output)
     {
-        if (result.Success)
+        if (output.Success)
         {
-            var output = result.GetContent();
-            var uri = new Uri($"Transaction/{output.TransactionId}");
-            return Created(uri, output);
+            var content = output.GetContent();
+            return this.Created(content.TransactionId, output);
         }
         
-        if (result.ContainsFailure("INVALID_FIELDS"))
-            return BadRequest(result.Failures);
+        if (output.ContainsFailure("INVALID_FIELDS"))
+            return BadRequest(output.Failures);
 
-        if (result.ContainsFailure("SOURCE_ACCOUNT_NOT_FOUNT"))
-            return NotFound(result.Failures);
+        if (output.ContainsFailure("SOURCE_ACCOUNT_NOT_FOUNT"))
+            return NotFound(output.Failures);
 
-        if (result.ContainsFailure("DESTINATION_ACCOUNT_NOT_FOUNT"))
-            return NotFound(result.Failures);
+        if (output.ContainsFailure("DESTINATION_ACCOUNT_NOT_FOUNT"))
+            return NotFound(output.Failures);
         
-        if (result.ContainsFailure("SERVICE_TEMPORARILY_UNAVAILABLE"))
-            return StatusCode(503, result.Failures);
+        if (output.ContainsFailure("SERVICE_TEMPORARILY_UNAVAILABLE"))
+            return StatusCode(503, output.Failures);
         
-        return StatusCode(500, result.Failures); 
+        return StatusCode(500, output.Failures); 
     }
 }

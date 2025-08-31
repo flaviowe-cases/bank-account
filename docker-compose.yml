@@ -12,7 +12,6 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - ACCOUNT_DB_CONNECTION_STRING=Host=account-db;Database=account;Username=admin;Password=admin
-      - MESSAGE_QUEUE_HOST=kafka:29092
     networks:
       - banknet
     depends_on:
@@ -33,7 +32,7 @@ services:
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - TRANSACTION_DB_CONNECTION_STRING=mongodb://admin:admin@transaction-db:27017/transaction?authSource=admin
       - TRANSACTION_DATABASE=transaction
-      - MESSAGE_QUEUE_HOST=kafka:29092
+      - MESSAGE_QUEUE_HOST=kafka:9092
     networks:
       - banknet
     depends_on:
@@ -51,7 +50,7 @@ services:
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - TRANSACTION_DB_CONNECTION_STRING=mongodb://admin:admin@transaction-db:27017/transaction?authSource=admin
       - TRANSACTION_DATABASE=transaction
-      - MESSAGE_QUEUE_HOST=kafka:29092
+      - MESSAGE_QUEUE_HOST=kafka:9092
     networks:
       - banknet
     depends_on:
