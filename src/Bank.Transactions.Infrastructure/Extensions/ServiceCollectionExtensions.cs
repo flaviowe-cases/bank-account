@@ -6,10 +6,13 @@ using Bank.Transactions.Application.Repositories;
 using Bank.Transactions.Application.Services;
 using Bank.Transactions.Application.UseCases.CreateTransaction;
 using Bank.Transactions.Application.UseCases.ExecuteTransaction;
+using Bank.Transactions.Application.UseCases.GetTransaction;
 using Bank.Transactions.Application.UseCases.GetTransactionsBalance;
 using Bank.Transactions.Application.UseCases.GetTransactionsHistory;
 using Bank.Transactions.Domain.Entities;
 using Bank.Transactions.Infrastructure.Gateways;
+using Bank.Transactions.Infrastructure.Gateways.AccountApi;
+using Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 using Bank.Transactions.Infrastructure.Repositories;
 using Confluent.Kafka;
 using FluentValidation;
@@ -57,6 +60,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddBankApplicationUseCases(this IServiceCollection services)
         => services
+            .AddScoped<IGetTransactionUseCase, GetTransactionUseCase>()
             .AddScoped<IExecuteTransactionUseCase, ExecuteTransactionUseCase>()
             .AddScoped<IGetTransactionsBalanceUseCase, GetTransactionsBalanceUseCase>()
             .AddScoped<IGetTransactionsHistoryUseCase, GetTransactionsHistoryUseCase>()

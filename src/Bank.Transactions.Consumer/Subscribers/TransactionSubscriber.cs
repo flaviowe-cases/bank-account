@@ -36,7 +36,7 @@ public class TransactionSubscriber(
         using var scope = _serviceScopeFactory.CreateScope();
             
         var useCase = scope.ServiceProvider
-            .GetRequiredService<ExecuteTransactionUseCase>();
+            .GetRequiredService<IExecuteTransactionUseCase>();
 
         var input = new ExecuteTransactionInput
         {

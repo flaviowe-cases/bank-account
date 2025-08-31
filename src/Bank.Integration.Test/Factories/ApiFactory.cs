@@ -2,6 +2,7 @@ using Bank.Accounts.Application.Gateways;
 using Bank.Accounts.Infrastructure.Gateways;
 using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Infrastructure.Gateways;
+using Bank.Transactions.Infrastructure.Gateways.AccountApi;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;

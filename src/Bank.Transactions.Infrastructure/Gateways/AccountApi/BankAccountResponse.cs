@@ -1,6 +1,6 @@
 using Bank.Transactions.Application.Models;
 
-namespace Bank.Transactions.Infrastructure.Gateways;
+namespace Bank.Transactions.Infrastructure.Gateways.AccountApi;
 
 public class BankAccountResponse
 {

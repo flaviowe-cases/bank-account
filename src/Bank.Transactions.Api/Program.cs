@@ -51,7 +51,8 @@ public class Program
         builder.AddCommonsOpenTelemetry(
             serviceName,
             openTelemetryEndpoint, 
-            openTelemetryProtocol);
+            openTelemetryProtocol,
+            messageQueueHost);
 
         builder.Services.AddControllers();
         builder.Services.AddCommonsApi(apiConfiguration);

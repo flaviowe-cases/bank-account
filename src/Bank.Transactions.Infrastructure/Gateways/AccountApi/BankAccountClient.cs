@@ -5,7 +5,7 @@ using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Application.Models;
 using Microsoft.Extensions.Logging;
 
-namespace Bank.Transactions.Infrastructure.Gateways;
+namespace Bank.Transactions.Infrastructure.Gateways.AccountApi;
 
 public class BankAccountClient(
     ILogger<BankAccountClient> logger,

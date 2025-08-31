@@ -23,7 +23,7 @@
         "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
         "TRANSACTION_DB_CONNECTION_STRING": "mongodb://admin:admin@localhost:27017/?authSource=transaction", 
         "TRANSACTION_DATABASE": "transaction",
-        "MESSAGE_QUEUE_HOST": "localhost:9092"
+        "MESSAGE_QUEUE_HOST": "localhost:29092"
       }
     },
     "https": {
@@ -40,7 +40,7 @@
         "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
         "TRANSACTION_DB_CONNECTION_STRING": "mongodb://admin:admin@localhost:27017/?authSource=transaction",
         "TRANSACTION_DATABASE": "transaction",
-        "MESSAGE_QUEUE_HOST": "localhost:9092"
+        "MESSAGE_QUEUE_HOST": "localhost:29092"
       }
     },
     "IIS Express": {
@@ -55,7 +55,7 @@
         "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
         "TRANSACTION_DB_CONNECTION_STRING": "mongodb://admin:admin@localhost:27017/?authSource=transaction",
         "TRANSACTION_DATABASE": "transaction",
-        "MESSAGE_QUEUE_HOST": "localhost:9092"
+        "MESSAGE_QUEUE_HOST": "localhost:29092"
       }
     }
   }

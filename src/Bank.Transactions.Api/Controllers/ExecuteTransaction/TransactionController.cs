@@ -29,29 +29,33 @@ public class TransactionController(
             Comments = request.Comments,
         };
         
-        var output = await _createTransactionUseCase
+        var result = await _createTransactionUseCase
             .HandleAsync(input);
         
-        return CreateResponse(output);
+        return CreateResponse(result);
     }
 
-    private IActionResult CreateResponse(Result<CreateTransactionOutput> output)
+    private IActionResult CreateResponse(Result<CreateTransactionOutput> result)
     {
-        if (output.Success)
-            return Created();
+        if (result.Success)
+        {
+            var output = result.GetContent();
+            var uri = new Uri($"Transaction/{output.TransactionId}");
+            return Created(uri, output);
+        }
         
-        if (output.ContainsFailure("INVALID_FIELDS"))
-            return BadRequest(output.Failures);
+        if (result.ContainsFailure("INVALID_FIELDS"))
+            return BadRequest(result.Failures);
 
-        if (output.ContainsFailure("SOURCE_ACCOUNT_NOT_FOUNT"))
-            return NotFound(output.Failures);
+        if (result.ContainsFailure("SOURCE_ACCOUNT_NOT_FOUNT"))
+            return NotFound(result.Failures);
 
-        if (output.ContainsFailure("DESTINATION_ACCOUNT_NOT_FOUNT"))
-            return NotFound(output.Failures);
+        if (result.ContainsFailure("DESTINATION_ACCOUNT_NOT_FOUNT"))
+            return NotFound(result.Failures);
         
-        if (output.ContainsFailure("SERVICE_TEMPORARILY_UNAVAILABLE"))
-            return StatusCode(503, output.Failures);
+        if (result.ContainsFailure("SERVICE_TEMPORARILY_UNAVAILABLE"))
+            return StatusCode(503, result.Failures);
         
-        return StatusCode(500, output.Failures); 
+        return StatusCode(500, result.Failures); 
     }
 }

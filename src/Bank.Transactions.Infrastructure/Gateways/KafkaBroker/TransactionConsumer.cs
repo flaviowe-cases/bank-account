@@ -1,12 +1,11 @@
 using System.Data;
 using Bank.Commons.Applications.Serializers;
 using Bank.Transactions.Application.Gateways;
-using Bank.Transactions.Application.Models;
 using Bank.Transactions.Domain.Entities;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 
-namespace Bank.Transactions.Infrastructure.Gateways;
+namespace Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 
 public class TransactionConsumer(
     ILogger<TransactionConsumer> logger,
@@ -31,12 +30,12 @@ public class TransactionConsumer(
             try
             {
                 var result = _consumer.Consume(cancellationToken);
-                var message = result.Message;
-                var json = message.Value;
-                var transactionMessage = _jsonSerializer.Deserialize<TransactionMessage>(json);
+                var json = result.Message.Value;
+                var transactionMessage = _jsonSerializer
+                    .Deserialize<TopicEnvelop<Transaction>>(json);
                 
                 if (transactionMessage is not null)
-                    await OnReceiveAsync(transactionMessage.Transaction);
+                    await OnReceiveAsync(transactionMessage.Message);
             }
             catch (Exception e)
             {

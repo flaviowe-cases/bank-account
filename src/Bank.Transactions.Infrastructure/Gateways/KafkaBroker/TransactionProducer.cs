@@ -3,7 +3,7 @@ using Bank.Transactions.Application.Gateways;
 using Bank.Transactions.Domain.Entities;
 using Confluent.Kafka;
 
-namespace Bank.Transactions.Infrastructure.Gateways;
+namespace Bank.Transactions.Infrastructure.Gateways.KafkaBroker;
 
 public class TransactionProducer(
     IJsonSerializer jsonSerializer,
@@ -16,17 +16,17 @@ public class TransactionProducer(
 
     public Task ExecuteTransactionAsync(Transaction transaction)
     {
-        return ExecuteTransactionAsync(new TransactionMessage()
+        return ExecuteTransactionAsync(new TopicEnvelop<Transaction>()
         {
             Id = Guid.NewGuid(),
-            Transaction = transaction,
+            Message = transaction,
         });
     }
 
-    private async Task ExecuteTransactionAsync(TransactionMessage transactionMessage)
+    private async Task ExecuteTransactionAsync(TopicEnvelop<Transaction> envelop)
     {
-        var key = transactionMessage.Transaction.Id.ToString();
-        var value = _jsonSerializer.Serialize(transactionMessage);
+        var key = envelop.Message.Id.ToString();
+        var value = _jsonSerializer.Serialize(envelop);
         var message = new Message<string, string>
         {
             Key = key,
